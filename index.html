@@ -141,6 +141,29 @@
             opacity: 0;
             pointer-events: none;
         }
+
+        /* 客製化 Input 樣式 */
+        .rsvp-input {
+            width: 100%;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 0;
+            outline: none;
+            font-size: 0.875rem;
+            transition: border-color 0.3s;
+            background: transparent;
+        }
+        .rsvp-input:focus {
+            border-color: var(--primary);
+        }
+        .section-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body id="wedding-body">
@@ -366,68 +389,69 @@
 
     <!-- 回函表單 -->
     <section id="rsvp" class="py-20 px-4">
-        <div class="max-w-xl mx-auto bg-white p-6 md:p-12 shadow-sm rounded-2xl border border-gray-50">
+        <div class="max-w-2xl mx-auto bg-white p-6 md:p-12 shadow-sm rounded-2xl border border-gray-50">
             <h3 class="font-en text-3xl text-center mb-2 text-[#d4a373]">RSVP</h3>
             <p class="text-center text-xs text-gray-400 mb-10 tracking-widest italic">出席回函</p>
             
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) {showSuccess();}"></iframe>
             
-            <form action="https://www.google.com/" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-bold mb-2">姓名 <span class="font-en text-[#8da399]">NAME</span></label>
-                        <input type="text" name="entry.123456" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm" placeholder="" required>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
-                        <select name="entry.999999" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm bg-transparent">
-                            <option value="高雄場 (10/03)">高雄場 (10/03)</option>
-                            <option value="台北場 (11/14)">台北場 (11/14)</option>
-                            <option value="兩場皆參加">兩場皆參加</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
-                        <select name="entry.234567" id="attendance" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm bg-transparent" onchange="toggleGuestOptions()">
-                            <option value="親自出席">親自出席</option>
-                            <option value="禮到心到">禮到心到</option>
-                        </select>
-                    </div>
-
-                    <div id="count_container">
-                        <label class="block text-xs font-bold mb-2">參加人數 <span class="font-en text-[#8da399]">TOTAL GUESTS</span></label>
-                        <input type="number" id="guest_count" name="entry.345678" min="1" value="1" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm" oninput="toggleGuestDetails()">
-                    </div>
-
-                    <div id="dynamic_fields" class="hidden space-y-6 pt-4 border-t border-dashed border-gray-100">
+            <form action="https://docs.google.com/forms/u/0/d/e/XXXX/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
+                <div class="space-y-8">
+                    <!-- 基本資料 -->
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs font-bold mb-2">飲食需求 <span class="font-en text-[#8da399]">DIETARY</span></label>
-                            <select name="entry.456789" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm bg-transparent">
-                                <option value="葷食">葷食</option>
-                                <option value="全素">全素</option>
-                                <option value="蛋奶素">蛋奶素</option>
-                            </select>
+                            <label class="block text-xs font-bold mb-2">姓名 <span class="font-en text-[#8da399]">NAME</span></label>
+                            <input type="text" name="entry.123456" class="rsvp-input" placeholder="請輸入您的姓名" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold mb-2">兒童椅 <span class="font-en text-[#8da399]">CHILD CHAIR</span></label>
-                            <select name="entry.567890" class="w-full border-b border-gray-200 py-2 focus:border-[#d4a373] outline-none text-sm bg-transparent">
-                                <option value="不需要">不需要</option>
-                                <option value="1位">1位</option>
-                                <option value="2位">2位</option>
+                            <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
+                            <select name="entry.relationship" class="rsvp-input" required>
+                                <option value="" disabled selected>請選擇您的身分</option>
+                                <option value="新郎朋友">新郎朋友</option>
+                                <option value="新郎父母親友">新郎父母親友</option>
+                                <option value="新娘朋友">新娘朋友</option>
+                                <option value="新娘父母親友">新娘父母親友</option>
                             </select>
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full py-4 btn-primary rounded-lg font-bold tracking-widest mt-8 text-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
+                            <select name="entry.234567" id="attendance" class="rsvp-input" onchange="toggleGuestOptions()">
+                                <option value="親自出席">親自出席</option>
+                                <option value="禮到心到">禮到心到</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
+                            <select name="entry.999999" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
+                                <option value="高雄場 (10/03)">高雄場 (10/03)</option>
+                                <option value="台北場 (11/14)">台北場 (11/14)</option>
+                                <option value="兩場皆參加">兩場皆參加</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 人數統計區塊 -->
+                    <div id="rsvp_details_container">
+                        <!-- 動態內容由 JS 產生 -->
+                    </div>
+
+                    <!-- 備註/留言 -->
+                    <div id="message_field">
+                        <label class="block text-xs font-bold mb-2">想對新人說的話 <span class="font-en text-[#8da399]">MESSAGE</span></label>
+                        <textarea name="entry.888888" rows="3" class="rsvp-input border-b border-gray-200 resize-none" placeholder="給予我們最溫馨的祝福..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 btn-primary rounded-lg font-bold tracking-widest mt-8 text-sm shadow-md hover:opacity-90 transition-opacity">
                         送出回函 SEND RSVP
                     </button>
                 </div>
             </form>
 
-            <div id="success_msg" class="hidden mt-6 text-center p-4 bg-green-50 text-green-700 rounded-lg text-sm">
-                感謝您的回覆！我們婚禮見。
+            <div id="success_msg" class="hidden mt-6 text-center p-6 bg-[#f4f1ea] text-[#d4a373] rounded-lg text-sm border border-[#d4a373]/20 animate-pulse">
+                感謝您的回覆！我們婚禮見。<br>Thank you! We look forward to seeing you.
             </div>
         </div>
     </section>
@@ -453,7 +477,7 @@
                 videoId: videoID,
                 playerVars: {
                     'autoplay': 1,
-                    'mute': 1, // 預設靜音以符合瀏覽器政策
+                    'mute': 1,
                     'controls': 0,
                     'loop': 1,
                     'playlist': videoID,
@@ -468,14 +492,12 @@
         }
 
         function onPlayerReady(event) {
-            // 預先載入，確保準備好播放
             event.target.playVideo();
             updateVolumeUI();
         }
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
-                // 確保 UI 狀態與播放器同步
                 isMuted = player.isMuted();
                 updateVolumeUI();
             }
@@ -484,16 +506,13 @@
             }
         }
 
-        // 偵測所有可能的使用者互動來啟動音訊
         const interactionEvents = ['mousedown', 'keydown', 'touchstart', 'click'];
         interactionEvents.forEach(eventType => {
             window.addEventListener(eventType, handleUserInteraction, { once: true, passive: true });
         });
 
         function handleUserInteraction(e) {
-            // 如果是點擊了靜音按鈕本身，由 toggleMuteManual 處理，不執行此處全域啟動邏輯
             if (e && e.target && e.target.closest('#mute-toggle')) return;
-
             if (!interactionDone && player && typeof player.unMute === 'function') {
                 activateAudio();
             }
@@ -518,10 +537,7 @@
                 event.preventDefault();
             }
             if (!player) return;
-            
-            // 如果是第一次互動就點擊按鈕，直接標記互動已完成
             interactionDone = true;
-
             if (isMuted) {
                 player.unMute();
                 player.setVolume(25);
@@ -537,16 +553,12 @@
         function updateVolumeUI() {
             const highIcon = document.getElementById('icon-volume-high');
             const mutedIcon = document.getElementById('icon-volume-muted');
-            const toggleBtn = document.getElementById('mute-toggle');
-
-            if (!highIcon || !mutedIcon || !toggleBtn) return;
-
             if (isMuted) {
-                highIcon.classList.add('hidden');
-                mutedIcon.classList.remove('hidden');
+                highIcon?.classList.add('hidden');
+                mutedIcon?.classList.remove('hidden');
             } else {
-                highIcon.classList.remove('hidden');
-                mutedIcon.classList.add('hidden');
+                highIcon?.classList.remove('hidden');
+                mutedIcon?.classList.add('hidden');
             }
         }
 
@@ -554,7 +566,6 @@
         function updateTimer(targetDate, prefix) {
             const now = new Date().getTime();
             const distance = targetDate - now;
-
             const d = Math.floor(distance / (1000 * 60 * 60 * 24));
             const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -583,24 +594,101 @@
             element.classList.toggle('accordion-active');
         }
 
-        function toggleGuestOptions() {
-            const attendance = document.getElementById('attendance').value;
-            const countContainer = document.getElementById('count_container');
-            const dynamicFields = document.getElementById('dynamic_fields');
-            if (attendance === '親自出席') {
-                countContainer.style.display = 'block';
-            } else {
-                countContainer.style.display = 'none';
-                dynamicFields.classList.add('hidden');
-                document.getElementById('guest_count').value = 1;
+        /* 數值防呆校驗 */
+        function validateNumbers(prefix) {
+            const total = parseInt(document.querySelector(`input[name="entry.${prefix}_count"]`).value) || 0;
+            const vegInput = document.querySelector(`input[name="entry.${prefix}_veg"]`);
+            const chairInput = document.querySelector(`input[name="entry.${prefix}_chair"]`);
+            
+            if (parseInt(vegInput.value) > total) {
+                vegInput.value = total;
+            }
+            if (parseInt(chairInput.value) > total) {
+                chairInput.value = total;
             }
         }
 
-        function toggleGuestDetails() {
-            const count = parseInt(document.getElementById('guest_count').value) || 1;
-            const dynamicFields = document.getElementById('dynamic_fields');
-            if (count > 1) dynamicFields.classList.remove('hidden');
-            else dynamicFields.classList.add('hidden');
+        /* RSVP 更新邏輯 */
+        const khFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
+                        <input type="number" name="entry.kh_count" min="1" value="1" class="rsvp-input" required oninput="validateNumbers('kh')">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
+                            <input type="number" name="entry.kh_veg" min="0" value="0" class="rsvp-input" oninput="validateNumbers('kh')">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
+                            <input type="number" name="entry.kh_chair" min="0" value="0" class="rsvp-input" oninput="validateNumbers('kh')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const tpFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
+                        <input type="number" name="entry.tp_count" min="1" value="1" class="rsvp-input" required oninput="validateNumbers('tp')">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
+                            <input type="number" name="entry.tp_veg" min="0" value="0" class="rsvp-input" oninput="validateNumbers('tp')">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
+                            <input type="number" name="entry.tp_chair" min="0" value="0" class="rsvp-input" oninput="validateNumbers('tp')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        function updateWeddingFields() {
+            const container = document.getElementById('rsvp_details_container');
+            const selection = document.getElementById('wedding_selection').value;
+            const attendance = document.getElementById('attendance').value;
+
+            if (attendance === '禮到心到') {
+                container.innerHTML = '';
+                return;
+            }
+
+            if (selection === '高雄場 (10/03)') {
+                container.innerHTML = `<div class="max-w-md mx-auto">${khFields}</div>`;
+            } else if (selection === '台北場 (11/14)') {
+                container.innerHTML = `<div class="max-w-md mx-auto">${tpFields}</div>`;
+            } else {
+                container.innerHTML = `
+                    <div class="grid md:grid-cols-2 gap-6">
+                        ${khFields}
+                        ${tpFields}
+                    </div>
+                `;
+            }
+        }
+
+        function toggleGuestOptions() {
+            const attendance = document.getElementById('attendance').value;
+            const selectionSelect = document.getElementById('wedding_selection');
+            
+            if (attendance === '禮到心到') {
+                selectionSelect.disabled = true;
+                selectionSelect.style.opacity = '0.5';
+            } else {
+                selectionSelect.disabled = false;
+                selectionSelect.style.opacity = '1';
+            }
+            updateWeddingFields();
         }
 
         function showSuccess() {
@@ -608,6 +696,11 @@
             document.querySelector('form').style.opacity = '0.3';
             document.querySelector('form').style.pointerEvents = 'none';
         }
+
+        // 初始化
+        window.onload = function() {
+            updateWeddingFields();
+        };
     </script>
 </body>
 </html>
