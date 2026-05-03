@@ -47,7 +47,6 @@
             justify-content: center;
             text-align: center;
             color: white;
-            opacity: 0.9;
         }
 
         /* 倒數計時卡片 */
@@ -406,7 +405,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
-                            <select name="entry.relationship" class="rsvp-input" required>
+                            <select name="entry.1945532298" class="rsvp-input" required>
                                 <option value="" disabled selected>請選擇您的身分</option>
                                 <option value="新郎朋友">新郎同事朋友</option>
                                 <option value="新郎父母親友">新郎父母親友</option>
@@ -612,20 +611,20 @@
         /* RSVP 更新邏輯 */
         const khFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場</span>
+                <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場資訊</span>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
-                        <input type="number" name="entry.kh_count" min="1" value="1" class="rsvp-input" required oninput="validateNumbers('kh')">
+                        <input type="number" name="entry.452926715" min="1" value="1" class="rsvp-input" required>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
-                            <input type="number" name="entry.kh_veg" min="0" value="0" class="rsvp-input" oninput="validateNumbers('kh')">
+                            <input type="number" name="entry.1011116248" min="0" value="0" class="rsvp-input">
                         </div>
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
-                            <input type="number" name="entry.kh_chair" min="0" value="0" class="rsvp-input" oninput="validateNumbers('kh')">
+                            <input type="number" name="entry.1430932560" min="0" value="0" class="rsvp-input">
                         </div>
                     </div>
                 </div>
@@ -634,20 +633,20 @@
 
         const tpFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場</span>
+                <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場資訊</span>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
-                        <input type="number" name="entry.tp_count" min="1" value="1" class="rsvp-input" required oninput="validateNumbers('tp')">
+                        <input type="number" name="entry.353344167" min="1" value="1" class="rsvp-input" required>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
-                            <input type="number" name="entry.tp_veg" min="0" value="0" class="rsvp-input" oninput="validateNumbers('tp')">
+                            <input type="number" name="entry.204218843" min="0" value="0" class="rsvp-input">
                         </div>
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
-                            <input type="number" name="entry.tp_chair" min="0" value="0" class="rsvp-input" oninput="validateNumbers('tp')">
+                            <input type="number" name="entry.752837380" min="0" value="0" class="rsvp-input">
                         </div>
                     </div>
                 </div>
@@ -665,37 +664,26 @@
             }
 
             if (selection === '高雄場 (10/03)') {
-                container.innerHTML = `<div class="max-w-md mx-auto">${khFields}</div>`;
+                container.innerHTML = khFields;
             } else if (selection === '台北場 (11/14)') {
-                container.innerHTML = `<div class="max-w-md mx-auto">${tpFields}</div>`;
+                container.innerHTML = tpFields;
             } else {
-                container.innerHTML = `
-                    <div class="grid md:grid-cols-2 gap-6">
-                        ${khFields}
-                        ${tpFields}
-                    </div>
-                `;
+                container.innerHTML = `<div class="space-y-6">${khFields}${tpFields}</div>`;
             }
         }
 
         function toggleGuestOptions() {
             const attendance = document.getElementById('attendance').value;
             const selectionSelect = document.getElementById('wedding_selection');
-            
-            if (attendance === '禮到心到') {
-                selectionSelect.disabled = true;
-                selectionSelect.style.opacity = '0.5';
-            } else {
-                selectionSelect.disabled = false;
-                selectionSelect.style.opacity = '1';
-            }
+            selectionSelect.disabled = (attendance === '禮到心到');
+            selectionSelect.style.opacity = (attendance === '禮到心到' ? '0.5' : '1');
             updateWeddingFields();
         }
 
         function showSuccess() {
             document.getElementById('success_msg').classList.remove('hidden');
-            document.querySelector('form').style.opacity = '0.3';
-            document.querySelector('form').style.pointerEvents = 'none';
+            document.querySelector('form').style.display = 'none';
+            window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
         }
 
         // 初始化
