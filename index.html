@@ -405,6 +405,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
+                            <!-- 選項 Value 必須與 Google 表單設定完全相同 -->
                             <select name="entry.924886869" class="rsvp-input" required>
                                 <option value="" hidden disabled selected>請選擇您的身分</option>
                                 <option value="新郎同事、同學、朋友">新郎同事、同學、朋友</option>
@@ -417,28 +418,29 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
-                            <select name="entry.1140731537" id="attendance" class="rsvp-input" onchange="toggleGuestOptions()">
+                            <!-- 選項 Value 已修改為全稱，以確保 Google 表單收錄成功 -->
+                            <select name="entry.1140731537" id="attendance" class="rsvp-input" required onchange="toggleGuestOptions()">
                                 <option value="" hidden disabled selected>請選擇您的出席意願</option>
-                                <option value="出席">一定出席！到場見證幸福時刻！</option>
-                                <option value="無法到場">無法到場，在這邊送上最誠摯的祝福</option>
-                                <option value="禮到人不到">禮到人不到，請還是寄喜帖給我</option>
+                                <option value="一定出席！到場見證幸福時刻！">一定出席！到場見證幸福時刻！</option>
+                                <option value="無法到場，在這邊送上最誠摯的祝福">無法到場，在這邊送上最誠摯的祝福</option>
+                                <option value="禮到人不到，請還是寄喜帖給我">禮到人不到，請還是寄喜帖給我</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
+                            <!-- 選項 Value 已修改為全稱 -->
                             <select name="entry.576496126" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
                                 <option value="" hidden disabled selected>請選擇您參加的場次</option>
-                                <option value="高雄場">高雄場 (10/03)</option>
-                                <option value="台北場">台北場 (11/14)</option>
+                                <option value="高雄場 (10/03)">高雄場 (10/03)</option>
+                                <option value="台北場 (11/14)">台北場 (11/14)</option>
                                 <option value="兩場皆參加">兩場皆參加</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- 人數統計區塊 -->
-                    <div id="rsvp_details_container">
-                        <!-- 動態內容由 JS 產生 -->
-                    </div>
+                    <!-- 人數統計區塊與喜帖區塊分開，避免互相清空 -->
+                    <div id="rsvp_details_container"></div>
+                    <div id="invitation_container"></div>
 
                     <!-- 備註/留言 -->
                     <div id="message_field">
@@ -471,25 +473,15 @@
         var isMuted = true;
         const videoID = 'IpFX2vq8HKw';
 
-        // 初始化播放器
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
                 videoId: videoID,
                 playerVars: {
-                    'autoplay': 1,
-                    'mute': 1,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': videoID,
-                    'origin': window.location.origin,
-                    'enablejsapi': 1
+                    'autoplay': 1, 'mute': 1, 'controls': 0, 'loop': 1, 'playlist': videoID, 'origin': window.location.origin, 'enablejsapi': 1
                 },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
         }
 
@@ -528,9 +520,7 @@
                 isMuted = false;
                 updateVolumeUI();
                 interactionDone = true;
-            } catch (err) {
-                console.log("Audio activation error:", err);
-            }
+            } catch (err) { }
         }
 
         function toggleMuteManual(event) {
@@ -564,7 +554,6 @@
             }
         }
 
-        /* 倒數計時邏輯 */
         function updateTimer(targetDate, prefix) {
             const now = new Date().getTime();
             const distance = targetDate - now;
@@ -573,44 +562,21 @@
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-            const dEl = document.getElementById(`${prefix}-days`);
-            const hEl = document.getElementById(`${prefix}-hours`);
-            const mEl = document.getElementById(`${prefix}-mins`);
-            const sEl = document.getElementById(`${prefix}-secs`);
-
-            if(dEl) dEl.innerText = Math.max(0, d).toString().padStart(2, '0');
-            if(hEl) hEl.innerText = Math.max(0, h).toString().padStart(2, '0');
-            if(mEl) mEl.innerText = Math.max(0, m).toString().padStart(2, '0');
-            if(sEl) sEl.innerText = Math.max(0, s).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-days`)) document.getElementById(`${prefix}-days`).innerText = Math.max(0, d).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-hours`)) document.getElementById(`${prefix}-hours`).innerText = Math.max(0, h).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-mins`)) document.getElementById(`${prefix}-mins`).innerText = Math.max(0, m).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-secs`)) document.getElementById(`${prefix}-secs`).innerText = Math.max(0, s).toString().padStart(2, '0');
         }
 
         const khDate = new Date("Oct 3, 2026 12:00:00").getTime();
         const tpDate = new Date("Nov 14, 2026 17:30:00").getTime();
-
-        setInterval(() => {
-            updateTimer(khDate, "kh");
-            updateTimer(tpDate, "tp");
-        }, 1000);
+        setInterval(() => { updateTimer(khDate, "kh"); updateTimer(tpDate, "tp"); }, 1000);
 
         function toggleAccordion(element) {
             element.classList.toggle('accordion-active');
         }
 
-        /* 數值防呆校驗 */
-        function validateNumbers(prefix) {
-            const total = parseInt(document.querySelector(`input[name="entry.${prefix}_count"]`).value) || 0;
-            const vegInput = document.querySelector(`input[name="entry.${prefix}_veg"]`);
-            const chairInput = document.querySelector(`input[name="entry.${prefix}_chair"]`);
-            
-            if (parseInt(vegInput.value) > total) {
-                vegInput.value = total;
-            }
-            if (parseInt(chairInput.value) > total) {
-                chairInput.value = total;
-            }
-        }
-
-        /* 喜帖形式動態區塊 HTML 模板 */
+        // 喜帖欄位模板 (使用全稱 Value)
         const invitationFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-6">
                 <span class="section-tag bg-blue-400/5 text-slate-400 border border-blue-200/30">INVITATION 喜帖索取形式</span>
@@ -619,9 +585,9 @@
                         <label class="block text-xs font-bold mb-2">喜帖形式 <span class="font-en text-[#8da399]">TYPE</span></label>
                         <select name="entry.625677536" id="invitation_type" class="rsvp-input" required onchange="updateInvitationDetails()">
                             <option value="" hidden disabled selected>請選擇喜帖形式</option>
-                            <option value="電子喜帖">環保愛地球，請給我電子喜帖！</option>
-                            <option value="紙本喜帖">我想要美美的實體喜帖留念！</option>
-                            <option value="都要">小孩子才做選擇，我全都要！</option>
+                            <option value="環保愛地球，請給我電子喜帖！">環保愛地球，請給我電子喜帖！</option>
+                            <option value="我想要美美的實體喜帖留念！">我想要美美的實體喜帖留念！</option>
+                            <option value="小孩子才做選擇，我全都要！">小孩子才做選擇，我全都要！</option>
                         </select>
                     </div>
                     <div id="invitation_inputs_container" class="space-y-4"></div>
@@ -629,7 +595,6 @@
             </div>
         `;
 
-        /* 高雄與台北的原始欄位 */
         const khFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                 <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場資訊</span>
@@ -653,7 +618,7 @@
         `;
 
         const tpFields = `
-            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-4">
                 <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場資訊</span>
                 <div class="space-y-4">
                     <div>
@@ -676,41 +641,50 @@
 
         function updateWeddingFields() {
             const container = document.getElementById('rsvp_details_container');
+            const invContainer = document.getElementById('invitation_container');
             const selection = document.getElementById('wedding_selection').value;
             const attendance = document.getElementById('attendance').value;
 
-            // 條件 A：無法到場 -> 什麼都不顯示
-            if (attendance === '無法到場') {
+            // 使用 includes 來判斷，更加穩定
+            const isAttending = attendance.includes('出席');
+            const isNotAttending = attendance.includes('無法到場');
+            const isGiftOnly = attendance.includes('禮到人不到');
+
+            // 1. 處理喜帖區塊 (避免重新繪製導致資料丟失)
+            if (isNotAttending) {
+                invContainer.innerHTML = '';
+            } else if (isGiftOnly || isAttending) {
+                // 如果區塊內沒有內容才塞入 HTML，避免清空使用者已填資料
+                if (!invContainer.innerHTML.trim()) {
+                    invContainer.innerHTML = invitationFields;
+                }
+            }
+
+            // 2. 處理場次區塊
+            if (isNotAttending || isGiftOnly) {
                 container.innerHTML = '';
-                return;
-            }
-
-            // 條件 B：禮到人不到 -> 只顯示喜帖統計區塊
-            if (attendance === '禮到人不到') {
-                container.innerHTML = invitationFields;
-                return;
-            }
-
-            // 條件 C：出席
-            if (attendance === '出席') {
+            } else if (isAttending) {
                 if (selection === '') {
                     container.innerHTML = '';
-                } else if (selection === '高雄場') {
-                    container.innerHTML = khFields + invitationFields;
-                } else if (selection === '台北場') {
-                    container.innerHTML = tpFields + invitationFields;
-                } else {
-                    container.innerHTML = `<div class="space-y-6">${khFields}${tpFields}</div>` + invitationFields;
+                } else if (selection.includes('兩場')) {
+                    container.innerHTML = `<div class="space-y-2">${khFields}${tpFields}</div>`;
+                } else if (selection.includes('高雄')) {
+                    container.innerHTML = khFields;
+                } else if (selection.includes('台北')) {
+                    container.innerHTML = tpFields;
                 }
             }
         }
 
-        /* 新增：控管喜帖內部欄位切換的函式 */
         function updateInvitationDetails() {
             const container = document.getElementById('invitation_inputs_container');
             const type = document.getElementById('invitation_type').value;
 
             if (!container) return;
+
+            const isDigital = type.includes('電子');
+            const isPaper = type.includes('實體') || type.includes('紙本');
+            const isBoth = type.includes('都要');
 
             const emailField = `
                 <div>
@@ -720,7 +694,7 @@
             `;
 
             const paperFields = `
-                <div class="grid md:grid-cols-2 gap-4">
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">收件地址 ADDRESS</label>
                         <input type="text" name="entry.1834394045" class="rsvp-input" placeholder="請輸入郵遞區號與地址" required>
@@ -732,11 +706,11 @@
                 </div>
             `;
 
-            if (type === '電子喜帖') {
+            if (isDigital) {
                 container.innerHTML = emailField;
-            } else if (type === '紙本喜帖') {
+            } else if (isPaper) {
                 container.innerHTML = paperFields;
-            } else if (type === '都要') {
+            } else if (isBoth) {
                 container.innerHTML = emailField + paperFields;
             } else {
                 container.innerHTML = '';
@@ -746,8 +720,21 @@
         function toggleGuestOptions() {
             const attendance = document.getElementById('attendance').value;
             const selectionSelect = document.getElementById('wedding_selection');
-            selectionSelect.disabled = ((attendance === '無法到場') || (attendance === '禮到人不到'));
-            selectionSelect.style.opacity = (((attendance === '無法到場') || (attendance === '禮到人不到')) ? '0.5' : '1');
+            
+            const isNotAttending = attendance.includes('無法到場');
+            const isGiftOnly = attendance.includes('禮到人不到');
+
+            // 處理參加場次的禁用與必填狀態
+            selectionSelect.disabled = (isNotAttending || isGiftOnly);
+            selectionSelect.style.opacity = ((isNotAttending || isGiftOnly) ? '0.5' : '1');
+            
+            // 如果一定出席，則強制參加場次必填
+            if (!isNotAttending && !isGiftOnly && attendance !== '') {
+                selectionSelect.required = true;
+            } else {
+                selectionSelect.required = false;
+            }
+
             updateWeddingFields();
         }
 
@@ -757,7 +744,6 @@
             window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
         }
 
-        // 初始化
         window.onload = function() {
             updateWeddingFields();
         };
