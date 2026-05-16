@@ -298,7 +298,7 @@
                         <div>
                             <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHEN</p>
                             <p class="text-lg">2026 年 10 月 03 日 (六)</p>
-                            <p class="text-sm text-gray-500">11:30 迎賓入席 | 12:00 正式開席</p>
+                            <p class="text-sm text-gray-500">12:00 迎賓入席 | 12:30 正式開席</p>
                         </div>
                         <div>
                             <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHERE</p>
@@ -401,16 +401,15 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">姓名 <span class="font-en text-[#8da399]">NAME</span></label>
-                            <input type="text" name="entry.123456" class="rsvp-input" placeholder="請輸入您的姓名" required>
+                            <input type="text" name="entry.1188900738" class="rsvp-input" placeholder="請輸入您的姓名" required>
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
-                            <select name="entry.1945532298" class="rsvp-input" required>
-                                <option value="" disabled selected>請選擇您的身分</option>
-                                <option value="新郎朋友">新郎同事朋友</option>
-                                <option value="新郎父母親友">新郎父母親友</option>
-                                <option value="新娘朋友">新娘同事朋友</option>
-                                <option value="新娘父母親友">新娘父母親友</option>
+                            <select name="entry.924886869" class="rsvp-input" required>
+                                <option value="" hidden disabled selected>請選擇您的身分</option>
+                                <option value="新郎同事、同學、朋友">新郎同事、同學、朋友</option>
+                                <option value="新娘同事、同學、朋友">新娘同事、同學、朋友</option>
+                                <option value="雙方共同朋友">雙方共同朋友</option>
                             </select>
                         </div>
                     </div>
@@ -418,16 +417,19 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
-                            <select name="entry.234567" id="attendance" class="rsvp-input" onchange="toggleGuestOptions()">
-                                <option value="親自出席">親自出席</option>
-                                <option value="禮到心到">禮到心到</option>
+                            <select name="entry.1140731537" id="attendance" class="rsvp-input" onchange="toggleGuestOptions()">
+                                <option value="" hidden disabled selected>請選擇您的出席意願</option>
+                                <option value="出席">一定出席！到場見證幸福時刻！</option>
+                                <option value="無法到場">無法到場，在這邊送上最誠摯的祝福</option>
+                                <option value="禮到人不到">禮到人不到，請還是寄喜帖給我</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
-                            <select name="entry.999999" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
-                                <option value="高雄場 (10/03)">高雄場 (10/03)</option>
-                                <option value="台北場 (11/14)">台北場 (11/14)</option>
+                            <select name="entry.576496126" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
+                                <option value="" hidden disabled selected>請選擇您參加的場次</option>
+                                <option value="高雄場">高雄場 (10/03)</option>
+                                <option value="台北場">台北場 (11/14)</option>
                                 <option value="兩場皆參加">兩場皆參加</option>
                             </select>
                         </div>
@@ -441,7 +443,7 @@
                     <!-- 備註/留言 -->
                     <div id="message_field">
                         <label class="block text-xs font-bold mb-2">想對新人說的話 <span class="font-en text-[#8da399]">MESSAGE</span></label>
-                        <textarea name="entry.888888" rows="3" class="rsvp-input border-b border-gray-200 resize-none" placeholder="給予我們最溫馨的祝福..."></textarea>
+                        <textarea name="entry.1604477425" rows="3" class="rsvp-input border-b border-gray-200 resize-none" placeholder="給予我們最溫馨的祝福..."></textarea>
                     </div>
 
                     <button type="submit" class="w-full py-4 btn-primary rounded-lg font-bold tracking-widest mt-8 text-sm shadow-md hover:opacity-90 transition-opacity">
@@ -583,7 +585,7 @@
         }
 
         const khDate = new Date("Oct 3, 2026 12:00:00").getTime();
-        const tpDate = new Date("Nov 14, 2026 18:00:00").getTime();
+        const tpDate = new Date("Nov 14, 2026 17:30:00").getTime();
 
         setInterval(() => {
             updateTimer(khDate, "kh");
@@ -608,23 +610,42 @@
             }
         }
 
-        /* RSVP 更新邏輯 */
+        /* 喜帖形式動態區塊 HTML 模板 */
+        const invitationFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-6">
+                <span class="section-tag bg-blue-400/5 text-slate-400 border border-blue-200/30">INVITATION 喜帖索取形式</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-2">喜帖形式 <span class="font-en text-[#8da399]">TYPE</span></label>
+                        <select name="entry.625677536" id="invitation_type" class="rsvp-input" required onchange="updateInvitationDetails()">
+                            <option value="" hidden disabled selected>請選擇喜帖形式</option>
+                            <option value="電子喜帖">環保愛地球，請給我電子喜帖！</option>
+                            <option value="紙本喜帖">我想要美美的實體喜帖留念！</option>
+                            <option value="都要">小孩子才做選擇，我全都要！</option>
+                        </select>
+                    </div>
+                    <div id="invitation_inputs_container" class="space-y-4"></div>
+                </div>
+            </div>
+        `;
+
+        /* 高雄與台北的原始欄位 */
         const khFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                 <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場資訊</span>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
-                        <input type="number" name="entry.452926715" min="1" value="1" class="rsvp-input" required>
+                        <input type="number" name="entry.1258816680" min="1" value="1" class="rsvp-input" required>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
-                            <input type="number" name="entry.1011116248" min="0" value="0" class="rsvp-input">
+                            <input type="number" name="entry.295167265" min="0" value="0" class="rsvp-input">
                         </div>
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
-                            <input type="number" name="entry.1430932560" min="0" value="0" class="rsvp-input">
+                            <input type="number" name="entry.2087293067" min="0" value="0" class="rsvp-input">
                         </div>
                     </div>
                 </div>
@@ -637,16 +658,16 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
-                        <input type="number" name="entry.353344167" min="1" value="1" class="rsvp-input" required>
+                        <input type="number" name="entry.356161891" min="1" value="1" class="rsvp-input" required>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
-                            <input type="number" name="entry.204218843" min="0" value="0" class="rsvp-input">
+                            <input type="number" name="entry.1582622195" min="0" value="0" class="rsvp-input">
                         </div>
                         <div>
                             <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
-                            <input type="number" name="entry.752837380" min="0" value="0" class="rsvp-input">
+                            <input type="number" name="entry.408306258" min="0" value="0" class="rsvp-input">
                         </div>
                     </div>
                 </div>
@@ -658,25 +679,75 @@
             const selection = document.getElementById('wedding_selection').value;
             const attendance = document.getElementById('attendance').value;
 
-            if (attendance === '禮到心到') {
+            // 條件 A：無法到場 -> 什麼都不顯示
+            if (attendance === '無法到場') {
                 container.innerHTML = '';
                 return;
             }
 
-            if (selection === '高雄場 (10/03)') {
-                container.innerHTML = khFields;
-            } else if (selection === '台北場 (11/14)') {
-                container.innerHTML = tpFields;
+            // 條件 B：禮到人不到 -> 只顯示喜帖統計區塊
+            if (attendance === '禮到人不到') {
+                container.innerHTML = invitationFields;
+                return;
+            }
+
+            // 條件 C：出席
+            if (attendance === '出席') {
+                if (selection === '') {
+                    container.innerHTML = '';
+                } else if (selection === '高雄場') {
+                    container.innerHTML = khFields + invitationFields;
+                } else if (selection === '台北場') {
+                    container.innerHTML = tpFields + invitationFields;
+                } else {
+                    container.innerHTML = `<div class="space-y-6">${khFields}${tpFields}</div>` + invitationFields;
+                }
+            }
+        }
+
+        /* 新增：控管喜帖內部欄位切換的函式 */
+        function updateInvitationDetails() {
+            const container = document.getElementById('invitation_inputs_container');
+            const type = document.getElementById('invitation_type').value;
+
+            if (!container) return;
+
+            const emailField = `
+                <div>
+                    <label class="block text-[10px] text-gray-400 font-bold mb-1">電子郵件 EMAIL</label>
+                    <input type="email" name="entry.1679138199" class="rsvp-input" placeholder="example@gmail.com" required>
+                </div>
+            `;
+
+            const paperFields = `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">收件地址 ADDRESS</label>
+                        <input type="text" name="entry.1834394045" class="rsvp-input" placeholder="請輸入郵遞區號與地址" required>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">聯絡電話 PHONE</label>
+                        <input type="tel" name="entry.1826199566" class="rsvp-input" placeholder="請輸入手機或市話" required>
+                    </div>
+                </div>
+            `;
+
+            if (type === '電子喜帖') {
+                container.innerHTML = emailField;
+            } else if (type === '紙本喜帖') {
+                container.innerHTML = paperFields;
+            } else if (type === '都要') {
+                container.innerHTML = emailField + paperFields;
             } else {
-                container.innerHTML = `<div class="space-y-6">${khFields}${tpFields}</div>`;
+                container.innerHTML = '';
             }
         }
 
         function toggleGuestOptions() {
             const attendance = document.getElementById('attendance').value;
             const selectionSelect = document.getElementById('wedding_selection');
-            selectionSelect.disabled = (attendance === '禮到心到');
-            selectionSelect.style.opacity = (attendance === '禮到心到' ? '0.5' : '1');
+            selectionSelect.disabled = ((attendance === '無法到場') || (attendance === '禮到人不到'));
+            selectionSelect.style.opacity = (((attendance === '無法到場') || (attendance === '禮到人不到')) ? '0.5' : '1');
             updateWeddingFields();
         }
 
