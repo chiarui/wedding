@@ -766,7 +766,13 @@
                     </div>
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">聯絡電話 PHONE</label>
-                        <input type="tel" name="entry.1826199566" class="rsvp-input" placeholder="請輸入手機或市話" required>
+                        <input type="tel" name="entry.1826199566" class="rsvp-input" 
+                               placeholder="請輸入手機或市話" required
+                               inputmode="numeric" 
+                               pattern="[0-9]*"
+                               maxlength="10"
+                               onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || ['Home', 'End', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key)"
+                               oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)">
                     </div>
                 </div>
             `;
