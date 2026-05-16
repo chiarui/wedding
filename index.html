@@ -28,6 +28,7 @@
 
         .font-en { font-family: 'Cormorant Garamond', serif; }
 
+        /* 毛玻璃導航列 */
         .glass-nav {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -35,6 +36,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
+        /* 全螢幕封面 */
         .hero-section {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('./20260224-SHIN0233.jpg');
@@ -47,6 +49,7 @@
             color: white;
         }
 
+        /* 倒數計時卡片 */
         .timer-card {
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -70,6 +73,7 @@
             margin: 0 4px;
         }
 
+        /* 垂直 V-Card */
         .v-card {
             border-left: 3px solid var(--primary);
             padding-left: 1.5rem;
@@ -82,6 +86,7 @@
             max-width: 100%;
         }
 
+        /* 摺疊面板 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -137,6 +142,7 @@
             pointer-events: none;
         }
 
+        /* 客製化 Input 樣式 */
         .rsvp-input {
             width: 100%;
             border-bottom: 1px solid #e5e7eb;
@@ -149,14 +155,25 @@
         .rsvp-input:focus {
             border-color: var(--primary);
         }
+        .section-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body id="wedding-body">
 
+    <!-- 隱藏播放器 -->
     <div id="yt-player-container">
         <div id="youtube-player"></div>
     </div>
 
+    <!-- 音樂控制 UI -->
     <div id="audio-ui" class="fixed bottom-6 right-6 z-[100]">
         <button id="mute-toggle" onclick="toggleMuteManual(event)" class="music-disc rounded-full shadow-2xl text-[#d4a373] focus:outline-none">
             <svg id="icon-volume-high" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
@@ -168,6 +185,7 @@
         </button>
     </div>
 
+    <!-- 導覽列 -->
     <nav class="glass-nav fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center">
         <div class="font-en text-2xl font-medium tracking-widest text-[#d4a373]">C & Z</div>
         <div class="hidden lg:flex space-x-8 text-sm tracking-widest">
@@ -178,17 +196,198 @@
         <div class="lg:hidden text-[10px] text-[#d4a373] font-bold">10.03 高雄場 / 11.14 台北場</div>
     </nav>
 
-    <!-- 封面與內容省略，直接修復回函表單部分 -->
+    <!-- 封面 -->
     <header class="hero-section">
         <div class="px-4 w-full">
             <div class="bg-black/20 p-6 md:p-10 rounded-lg backdrop-blur-[2px] inline-block max-w-[90%]">
                 <h2 class="font-en italic text-xl md:text-2xl mb-4 tracking-[0.2em]">Love Love Love</h2>
                 <h1 class="font-en text-5xl md:text-8xl mb-8">chiarui & zsyuan</h1>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-sm tracking-[0.2em]">
+                    <div class="border-b md:border-b-0 md:border-r border-white/50 pb-2 md:pb-0 md:pr-6">
+                        <p class="font-bold">2026 . 10 . 03</p>
+                        <p class="text-[10px] mt-1 opacity-80">KAOHSIUNG</p>
+                    </div>
+                    <div>
+                        <p class="font-bold">2026 . 11 . 14</p>
+                        <p class="text-[10px] mt-1 opacity-80">TAIPEI</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- 表單區塊 -->
+    <!-- 關於我們 / 計時器 -->
+    <section id="about" class="py-16 md:py-24 px-4 max-w-7xl mx-auto text-center overflow-hidden">
+        <h3 class="font-en text-3xl md:text-4xl mb-12 text-[#8da399]">Save the Date</h3>
+        
+        <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-16">
+            <!-- 高雄計時 -->
+            <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
+                <p class="countdown-title">高雄場 KAOHSIUNG COUNTDOWN</p>
+                <div class="flex justify-center items-center gap-1 md:gap-2">
+                    <div class="timer-card">
+                        <span id="kh-days" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">DAYS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="kh-hours" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">HRS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="kh-mins" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">MINS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="kh-secs" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">SECS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 台北計時 -->
+            <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
+                <p class="countdown-title">台北場 TAIPEI COUNTDOWN</p>
+                <div class="flex justify-center items-center gap-1 md:gap-2">
+                    <div class="timer-card">
+                        <span id="tp-days" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">DAYS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="tp-hours" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">HRS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="tp-mins" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">MINS</span>
+                    </div>
+                    <div class="timer-divider"></div>
+                    <div class="timer-card">
+                        <span id="tp-secs" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
+                        <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">SECS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="v-card text-left max-w-lg mx-auto">
+            <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
+            <p class="leading-loose text-gray-600 text-sm md:text-base">
+                在溫暖的陽光下，我們決定攜手前行。<br>
+                在高雄，在台北，我們想將這份喜悅分享給最珍貴的你們。<br>
+                誠摯邀請您參與我們的幸福時刻。<br>
+                <span class="text-[#8da399] font-bold">Dress Code：淡色系</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- 婚禮詳情 -->
+    <section id="details" class="py-20 bg-[#f4f1ea] px-6">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="font-en text-3xl md:text-4xl text-center mb-16 text-[#8da399]">Wedding Details</h3>
+            
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- 高雄場詳情 -->
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-1 border border-[#d4a373] text-[#d4a373] text-xs mb-4">KAOHSIUNG WEDDING</div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHEN</p>
+                            <p class="text-lg">2026 年 10 月 03 日 (六)</p>
+                            <p class="text-sm text-gray-500">12:00 迎賓入席 | 12:30 正式開席</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHERE</p>
+                            <p class="text-lg">晶綺盛宴 台鋁館</p>
+                            <p class="text-sm text-gray-500 no-wrap">高雄市前鎮區忠勤路8號</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">TRANSPORTATION</p>
+                            <div class="space-y-2 mt-4">
+                                <div class="border-b border-gray-300 pb-2 accordion-item cursor-pointer" onclick="toggleAccordion(this)">
+                                    <div class="flex justify-between items-center py-2">
+                                        <span class="text-sm font-bold">捷運/輕軌資訊 MRT/LRT</span>
+                                        <span class="accordion-icon text-xs">↓</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="py-4 text-xs text-gray-600 leading-relaxed">
+                                            搭乘捷運紅線至 <span class="no-wrap font-bold text-[#8da399]">獅甲站</span> 4號出口，<br>
+                                            或搭乘輕軌至 <span class="no-wrap font-bold text-[#8da399]">軟體園區站</span>，<br>
+                                            步行約 5-10 分鐘即可抵達。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="border-b border-gray-300 pb-2 accordion-item cursor-pointer" onclick="toggleAccordion(this)">
+                                    <div class="flex justify-between items-center py-2">
+                                        <span class="text-sm font-bold">停車資訊 PARKING</span>
+                                        <span class="accordion-icon text-xs">↓</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="py-4 text-xs text-gray-600 leading-relaxed">
+                                            MLD 台鋁備有收費停車場，<br>
+                                            賓客可享汽車 4 小時 / 機車 6 小時折抵。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 台北場詳情 -->
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-1 border border-[#8da399] text-[#8da399] text-xs mb-4">TAIPEI DINNER</div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHEN</p>
+                            <p class="text-lg">2026 年 11 月 14 日 (六)</p>
+                            <p class="text-sm text-gray-500">17:30 迎賓 | 18:00 正式開席</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">WHERE</p>
+                            <p class="text-lg">GUMGUM EGG 剛剛小巨蛋店</p>
+                            <p class="text-sm text-gray-500 no-wrap">臺北市松山區南京東路四段2號1樓</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#d4a373] font-en tracking-widest mb-1">TRANSPORTATION</p>
+                            <div class="space-y-2 mt-4">
+                                <div class="border-b border-gray-300 pb-2 accordion-item cursor-pointer" onclick="toggleAccordion(this)">
+                                    <div class="flex justify-between items-center py-2">
+                                        <span class="text-sm font-bold">捷運資訊 MRT</span>
+                                        <span class="accordion-icon text-xs">↓</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="py-4 text-xs text-gray-600 leading-relaxed">
+                                            搭乘捷運松山新店線至 <span class="no-wrap font-bold text-[#8da399]">台北小巨蛋站</span> 2號出口，<br>
+                                            步行約 1 分鐘即可抵達。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="border-b border-gray-300 pb-2 accordion-item cursor-pointer" onclick="toggleAccordion(this)">
+                                    <div class="flex justify-between items-center py-2">
+                                        <span class="text-sm font-bold">停車資訊 PARKING</span>
+                                        <span class="accordion-icon text-xs">↓</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="py-4 text-xs text-gray-600 leading-relaxed">
+                                            建議停放於 <span class="no-wrap">台北小巨蛋地下停車場</span><br>
+                                            或周邊收費停車場。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 回函表單 -->
     <section id="rsvp" class="py-20 px-4">
         <div class="max-w-2xl mx-auto bg-white p-6 md:p-12 shadow-sm rounded-2xl border border-gray-50">
             <h3 class="font-en text-3xl text-center mb-2 text-[#d4a373]">RSVP</h3>
@@ -196,7 +395,6 @@
             
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) {showSuccess();}"></iframe>
             
-            <!-- 確保 action 與 method 正確 -->
             <form action="https://docs.google.com/forms/d/e/1FAIpQLSeW46dOE1A9eaME1Wwi4Nh-NTaAMgwqBENh7qe14xtZh2UDAw/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
                 <div class="space-y-8">
                     <!-- 基本資料 -->
@@ -207,7 +405,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
-                            <!-- Value 必須與表單完全一致 -->
+                            <!-- 選項 Value 必須與 Google 表單設定完全相同 -->
                             <select name="entry.924886869" class="rsvp-input" required>
                                 <option value="" hidden disabled selected>請選擇您的身分</option>
                                 <option value="新郎同事、同學、朋友">新郎同事、同學、朋友</option>
@@ -220,19 +418,19 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
-                            <!-- Value 修正為 "出席" 或 "不克出席"，移除括號說明以匹配表單設定 -->
+                            <!-- 選項 Value 已修改為全稱，以確保 Google 表單收錄成功 -->
                             <select name="entry.1140731537" id="attendance" class="rsvp-input" required onchange="toggleGuestOptions()">
-                                <option value="" hidden disabled selected>請選擇</option>
-                                <option value="出席">出席</option>
-                                <option value="不克出席，禮到人不到">不克出席，禮到人不到</option>
-                                <option value="無法到場，心意到">無法到場，心意到</option>
+                                <option value="" hidden disabled selected>請選擇您的出席意願</option>
+                                <option value="一定出席！到場見證幸福時刻！">一定出席！到場見證幸福時刻！</option>
+                                <option value="無法到場，在這邊送上最誠摯的祝福">無法到場，在這邊送上最誠摯的祝福</option>
+                                <option value="禮到人不到，請還是寄喜帖給我">禮到人不到，請還是寄喜帖給我</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">SELECTION</span></label>
-                            <!-- entry.576496126 -->
+                            <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
+                            <!-- 選項 Value 已修改為全稱 -->
                             <select name="entry.576496126" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
-                                <option value="" hidden disabled selected>請選擇場次</option>
+                                <option value="" hidden disabled selected>請選擇您參加的場次</option>
                                 <option value="高雄場 (10/03)">高雄場 (10/03)</option>
                                 <option value="台北場 (11/14)">台北場 (11/14)</option>
                                 <option value="兩場皆參加">兩場皆參加</option>
@@ -240,181 +438,312 @@
                         </div>
                     </div>
 
-                    <!-- 人數統計區 (由 JS 動態更新內容與 entry ID) -->
-                    <div id="guest_stats_container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <!-- 動態生成內容見 JavaScript -->
-                    </div>
+                    <!-- 人數統計區塊與喜帖區塊分開，避免互相清空 -->
+                    <div id="rsvp_details_container"></div>
+                    <div id="invitation_container"></div>
 
-                    <!-- 喜帖領取區 -->
-                    <div>
-                        <label class="block text-xs font-bold mb-4">喜帖領取方式 <span class="font-en text-[#8da399]">INVITATION</span></label>
-                        <!-- entry.625677536 -->
-                        <div class="flex gap-6">
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="radio" name="entry.625677536" value="電子喜帖" class="mr-2 accent-[#d4a373]" onclick="updateInvitationFields('電子')"> 電子喜帖
-                            </label>
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="radio" name="entry.625677536" value="紙本喜帖" class="mr-2 accent-[#d4a373]" onclick="updateInvitationFields('紙本')"> 紙本喜帖
-                            </label>
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="radio" name="entry.625677536" value="都要" class="mr-2 accent-[#d4a373]" onclick="updateInvitationFields('都要')"> 都要
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- 動態詳細資料區 (Email, 地址, 電話) -->
-                    <div id="invitation_detail_container" class="space-y-6"></div>
-
-                    <!-- 祝福話語 -->
-                    <div>
+                    <!-- 備註/留言 -->
+                    <div id="message_field">
                         <label class="block text-xs font-bold mb-2">想對新人說的話 <span class="font-en text-[#8da399]">MESSAGE</span></label>
-                        <textarea name="entry.1604477425" class="rsvp-input" rows="3" placeholder="留下您的祝福..."></textarea>
+                        <textarea name="entry.1604477425" rows="3" class="rsvp-input border-b border-gray-200 resize-none" placeholder="給予我們最溫馨的祝福..."></textarea>
                     </div>
 
-                    <div class="pt-6">
-                        <button type="submit" class="w-full py-4 btn-primary rounded-xl font-bold tracking-widest text-sm shadow-lg">確認送出 SUBMIT</button>
-                    </div>
+                    <button type="submit" class="w-full py-4 btn-primary rounded-lg font-bold tracking-widest mt-8 text-sm shadow-md hover:opacity-90 transition-opacity">
+                        送出回函 SEND RSVP
+                    </button>
                 </div>
             </form>
 
-            <div id="success_msg" class="hidden text-center py-12">
-                <div class="text-4xl mb-4">✨</div>
-                <h4 class="text-xl font-bold text-[#d4a373] mb-2">回函已成功送出</h4>
-                <p class="text-gray-500 text-sm">期待在婚禮上見到您！</p>
-                <button onclick="location.reload()" class="mt-8 text-xs text-[#8da399] underline">重新填寫</button>
+            <div id="success_msg" class="hidden mt-6 text-center p-6 bg-[#f4f1ea] text-[#d4a373] rounded-lg text-sm border border-[#d4a373]/20 animate-pulse">
+                感謝您的回覆！我們婚禮見。<br>Thank you! We look forward to seeing you.
             </div>
         </div>
     </section>
 
+    <footer class="py-12 text-center text-gray-400 text-[10px] tracking-[0.3em]">
+        &copy; 2026 CHIARUI & ZSYUAN WEDDING. ALL RIGHTS RESERVED.
+    </footer>
+
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
-        // 倒數計時與手風琴邏輯保持不變 (略)
+        var player;
+        var interactionDone = false;
+        var isMuted = true;
+        const videoID = 'IpFX2vq8HKw';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: videoID,
+                playerVars: {
+                    'autoplay': 1, 'mute': 1, 'controls': 0, 'loop': 1, 'playlist': videoID, 'origin': window.location.origin, 'enablejsapi': 1
+                },
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            updateVolumeUI();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isMuted = player.isMuted();
+                updateVolumeUI();
+            }
+            if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo();
+            }
+        }
+
+        const interactionEvents = ['mousedown', 'keydown', 'touchstart', 'click'];
+        interactionEvents.forEach(eventType => {
+            window.addEventListener(eventType, handleUserInteraction, { once: true, passive: true });
+        });
+
+        function handleUserInteraction(e) {
+            if (e && e.target && e.target.closest('#mute-toggle')) return;
+            if (!interactionDone && player && typeof player.unMute === 'function') {
+                activateAudio();
+            }
+        }
+
+        function activateAudio() {
+            try {
+                player.unMute();
+                player.setVolume(25);
+                player.playVideo();
+                isMuted = false;
+                updateVolumeUI();
+                interactionDone = true;
+            } catch (err) { }
+        }
+
+        function toggleMuteManual(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            if (!player) return;
+            interactionDone = true;
+            if (isMuted) {
+                player.unMute();
+                player.setVolume(25);
+                player.playVideo();
+                isMuted = false;
+            } else {
+                player.mute();
+                isMuted = true;
+            }
+            updateVolumeUI();
+        }
+
+        function updateVolumeUI() {
+            const highIcon = document.getElementById('icon-volume-high');
+            const mutedIcon = document.getElementById('icon-volume-muted');
+            if (isMuted) {
+                highIcon?.classList.add('hidden');
+                mutedIcon?.classList.remove('hidden');
+            } else {
+                highIcon?.classList.remove('hidden');
+                mutedIcon?.classList.add('hidden');
+            }
+        }
+
+        function updateTimer(targetDate, prefix) {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if(document.getElementById(`${prefix}-days`)) document.getElementById(`${prefix}-days`).innerText = Math.max(0, d).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-hours`)) document.getElementById(`${prefix}-hours`).innerText = Math.max(0, h).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-mins`)) document.getElementById(`${prefix}-mins`).innerText = Math.max(0, m).toString().padStart(2, '0');
+            if(document.getElementById(`${prefix}-secs`)) document.getElementById(`${prefix}-secs`).innerText = Math.max(0, s).toString().padStart(2, '0');
+        }
+
+        const khDate = new Date("Oct 3, 2026 12:00:00").getTime();
+        const tpDate = new Date("Nov 14, 2026 17:30:00").getTime();
+        setInterval(() => { updateTimer(khDate, "kh"); updateTimer(tpDate, "tp"); }, 1000);
+
         function toggleAccordion(element) {
             element.classList.toggle('accordion-active');
         }
 
+        // 喜帖欄位模板 (使用全稱 Value)
+        const invitationFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-6">
+                <span class="section-tag bg-blue-400/5 text-slate-400 border border-blue-200/30">INVITATION 喜帖索取形式</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-2">喜帖形式 <span class="font-en text-[#8da399]">TYPE</span></label>
+                        <select name="entry.625677536" id="invitation_type" class="rsvp-input" required onchange="updateInvitationDetails()">
+                            <option value="" hidden disabled selected>請選擇喜帖形式</option>
+                            <option value="環保愛地球，請給我電子喜帖！">環保愛地球，請給我電子喜帖！</option>
+                            <option value="我想要美美的實體喜帖留念！">我想要美美的實體喜帖留念！</option>
+                            <option value="小孩子才做選擇，我全都要！">小孩子才做選擇，我全都要！</option>
+                        </select>
+                    </div>
+                    <div id="invitation_inputs_container" class="space-y-4"></div>
+                </div>
+            </div>
+        `;
+
+        const khFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場資訊</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
+                        <input type="number" name="entry.1258816680" min="1" value="1" class="rsvp-input" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
+                            <input type="number" name="entry.295167265" min="0" value="0" class="rsvp-input">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
+                            <input type="number" name="entry.2087293067" min="0" value="0" class="rsvp-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const tpFields = `
+            <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-4">
+                <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場資訊</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">總出席人數 GUESTS</label>
+                        <input type="number" name="entry.356161891" min="1" value="1" class="rsvp-input" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">素食人數 VEG</label>
+                            <input type="number" name="entry.1582622195" min="0" value="0" class="rsvp-input">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 font-bold mb-1">兒童椅數 CHAIR</label>
+                            <input type="number" name="entry.408306258" min="0" value="0" class="rsvp-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
         function updateWeddingFields() {
+            const container = document.getElementById('rsvp_details_container');
+            const invContainer = document.getElementById('invitation_container');
             const selection = document.getElementById('wedding_selection').value;
-            const container = document.getElementById('guest_stats_container');
-            
-            let html = '';
-            
-            // 根據場次顯示正確的 entry ID
-            if (selection.includes('高雄場')) {
-                html = `
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄成人</label>
-                        <input type="number" name="entry.1258816680" class="rsvp-input" value="1" min="1">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄兒童</label>
-                        <input type="number" name="entry.295167265" class="rsvp-input" value="0" min="0">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄素食</label>
-                        <input type="number" name="entry.2087293067" class="rsvp-input" value="0" min="0">
-                    </div>
-                `;
-            } else if (selection.includes('台北場')) {
-                html = `
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北人數</label>
-                        <input type="number" name="entry.356161891" class="rsvp-input" value="1" min="1">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北兒童</label>
-                        <input type="number" name="entry.1582622195" class="rsvp-input" value="0" min="0">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北素食</label>
-                        <input type="number" name="entry.408306258" class="rsvp-input" value="0" min="0">
-                    </div>
-                `;
-            } else if (selection.includes('兩場皆參加')) {
-                html = `
-                    <div class="col-span-full border-b pb-1 mb-1 text-[10px] text-[#d4a373]">高雄場人數統計</div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄成人</label>
-                        <input type="number" name="entry.1258816680" class="rsvp-input" value="1" min="1">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄兒童</label>
-                        <input type="number" name="entry.295167265" class="rsvp-input" value="0" min="0">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">高雄素食</label>
-                        <input type="number" name="entry.2087293067" class="rsvp-input" value="0" min="0">
-                    </div>
-                    <div class="col-span-full border-b pb-1 mt-2 mb-1 text-[10px] text-[#d4a373]">台北場人數統計</div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北人數</label>
-                        <input type="number" name="entry.356161891" class="rsvp-input" value="1" min="1">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北兒童</label>
-                        <input type="number" name="entry.1582622195" class="rsvp-input" value="0" min="0">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 mb-1">台北素食</label>
-                        <input type="number" name="entry.408306258" class="rsvp-input" value="0" min="0">
-                    </div>
-                `;
+            const attendance = document.getElementById('attendance').value;
+
+            // 使用 includes 來判斷，更加穩定
+            const isAttending = attendance.includes('出席');
+            const isNotAttending = attendance.includes('無法到場');
+            const isGiftOnly = attendance.includes('禮到人不到');
+
+            // 1. 處理喜帖區塊 (避免重新繪製導致資料丟失)
+            if (isNotAttending) {
+                invContainer.innerHTML = '';
+            } else if (isGiftOnly || isAttending) {
+                // 如果區塊內沒有內容才塞入 HTML，避免清空使用者已填資料
+                if (!invContainer.innerHTML.trim()) {
+                    invContainer.innerHTML = invitationFields;
+                }
             }
-            container.innerHTML = html;
+
+            // 2. 處理場次區塊
+            if (isNotAttending || isGiftOnly) {
+                container.innerHTML = '';
+            } else if (isAttending) {
+                if (selection === '') {
+                    container.innerHTML = '';
+                } else if (selection.includes('兩場')) {
+                    container.innerHTML = `<div class="space-y-2">${khFields}${tpFields}</div>`;
+                } else if (selection.includes('高雄')) {
+                    container.innerHTML = khFields;
+                } else if (selection.includes('台北')) {
+                    container.innerHTML = tpFields;
+                }
+            }
         }
 
-        function updateInvitationFields(type) {
-            const container = document.getElementById('invitation_detail_container');
+        function updateInvitationDetails() {
+            const container = document.getElementById('invitation_inputs_container');
+            const type = document.getElementById('invitation_type').value;
+
+            if (!container) return;
+
+            const isDigital = type.includes('電子');
+            const isPaper = type.includes('實體') || type.includes('紙本');
+            const isBoth = type.includes('都要');
+
             const emailField = `
                 <div>
-                    <label class="block text-xs font-bold mb-2">Email (接收電子喜帖)</label>
-                    <input type="email" name="entry.1679138199" class="rsvp-input" placeholder="example@mail.com" required>
+                    <label class="block text-[10px] text-gray-400 font-bold mb-1">電子郵件 EMAIL</label>
+                    <input type="email" name="entry.1679138199" class="rsvp-input" placeholder="example@gmail.com" required>
                 </div>
             `;
+
             const paperFields = `
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
                     <div>
-                        <label class="block text-xs font-bold mb-2">收件地址 (郵遞區號+地址)</label>
-                        <input type="text" name="entry.1834394045" class="rsvp-input" placeholder="請輸入收件地址" required>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">收件地址 ADDRESS</label>
+                        <input type="text" name="entry.1834394045" class="rsvp-input" placeholder="請輸入郵遞區號與地址" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-2">連絡電話</label>
-                        <input type="tel" name="entry.1826199566" class="rsvp-input" placeholder="請輸入電話" required>
+                        <label class="block text-[10px] text-gray-400 font-bold mb-1">聯絡電話 PHONE</label>
+                        <input type="tel" name="entry.1826199566" class="rsvp-input" placeholder="請輸入手機或市話" required>
                     </div>
                 </div>
             `;
 
-            if (type === '電子') {
+            if (isDigital) {
                 container.innerHTML = emailField;
-            } else if (type === '紙本') {
+            } else if (isPaper) {
                 container.innerHTML = paperFields;
-            } else if (type === '都要') {
+            } else if (isBoth) {
                 container.innerHTML = emailField + paperFields;
+            } else {
+                container.innerHTML = '';
             }
         }
 
         function toggleGuestOptions() {
             const attendance = document.getElementById('attendance').value;
             const selectionSelect = document.getElementById('wedding_selection');
-            const isAttending = (attendance === '出席');
+            
+            const isNotAttending = attendance.includes('無法到場');
+            const isGiftOnly = attendance.includes('禮到人不到');
 
-            selectionSelect.disabled = !isAttending;
-            selectionSelect.style.opacity = isAttending ? '1' : '0.5';
-            selectionSelect.required = isAttending;
-
-            if (!isAttending) {
-                document.getElementById('guest_stats_container').innerHTML = '';
+            // 處理參加場次的禁用與必填狀態
+            selectionSelect.disabled = (isNotAttending || isGiftOnly);
+            selectionSelect.style.opacity = ((isNotAttending || isGiftOnly) ? '0.5' : '1');
+            
+            // 如果一定出席，則強制參加場次必填
+            if (!isNotAttending && !isGiftOnly && attendance !== '') {
+                selectionSelect.required = true;
             } else {
-                updateWeddingFields();
+                selectionSelect.required = false;
             }
+
+            updateWeddingFields();
         }
 
         function showSuccess() {
             document.getElementById('success_msg').classList.remove('hidden');
-            document.querySelector('form').classList.add('hidden');
+            document.querySelector('form').style.display = 'none';
             window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
         }
 
-        // 初始化
         window.onload = function() {
             updateWeddingFields();
         };
