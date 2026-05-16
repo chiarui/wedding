@@ -739,36 +739,9 @@
         }
 
         function showSuccess() {
-            const form = document.querySelector('form');
-            const formData = new FormData(form);
-            let debugText = "--- Google Form Submission Debug --- \n";
-            let debugHtml = '<div class="mt-6 p-4 bg-gray-900 text-green-400 font-mono text-xs rounded-lg overflow-x-auto text-left">';
-            debugHtml += '<p class="mb-2 text-white border-b border-gray-700 pb-1">Debug Information (To be sent):</p>';
-
-            for (let [key, value] of formData.entries()) {
-                if (value) {
-                    debugText += `${key}: ${value}\n`;
-                    debugHtml += `<div><span class="text-blue-400">${key}:</span> ${value}</div>`;
-                }
-            }
-
-            debugHtml += `<button onclick="copyDebugText(\`${debugText.replace(/`/g, '\\`').replace(/\n/g, '\\n')}\`)" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded">複製除錯資訊</button>`;
-            debugHtml += '</div>';
-
-            // 顯示成功訊息與除錯區塊
-            const successMsg = document.getElementById('success_msg');
-            successMsg.classList.remove('hidden');
-            successMsg.innerHTML += debugHtml;
-            
-            form.style.display = 'none';
+            document.getElementById('success_msg').classList.remove('hidden');
+            document.querySelector('form').style.display = 'none';
             window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
-        }
-
-        // --- 新增複製功能 ---
-        function copyDebugText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('除錯資訊已複製到剪貼簿！');
-            });
         }
 
         window.onload = function() {
