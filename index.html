@@ -395,7 +395,7 @@
             
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) {showSuccess();}"></iframe>
             
-            <form action="https://docs.google.com/forms/d/e/1FAIpQLSeW46dOE1A9eaME1Wwi4Nh-NTaAMgwqBENh7qe14xtZh2UDAw/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
+            <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeW46dOE1A9eaME1Wwi4Nh-NTaAMgwqBENh7qe14xtZh2UDAw/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
                 <div class="space-y-8">
                     <!-- 基本資料 -->
                     <div class="grid md:grid-cols-2 gap-6">
@@ -702,9 +702,15 @@
             if (val !== "") {
                 val = parseInt(val, 10).toString();
             } else {
-                val = "0";
+                val = "";
             }
-            input.value = val;
+
+            // 確保數值小於等於 10
+            if (parseInt(val, 10) > 10) {
+                input.value = "";
+            } else {
+                input.value = val;
+            }
         }
 
         // 檢查素食與兒童椅是否超過總人數
@@ -806,6 +812,17 @@
         window.onload = function() {
             updateWeddingFields();
         };
+
+        const form = document.getElementById('rsvpForm');
+        form.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                // 如果不是在 textarea 內，就取消 Enter 鍵的預設動作 (submit)
+                if (event.target.tagName !== 'TEXTAREA') {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        });
     </script>
 </body>
 </html>
