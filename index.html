@@ -39,7 +39,7 @@
         /* 全螢幕封面 */
         .hero-section {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('./20260224-SHIN0233.jpg');
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('./cover.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -164,6 +164,96 @@
             border-radius: 4px;
             margin-bottom: 1rem;
         }
+
+        /* 改良後的不規則藝術照片牆樣式 */
+        .gallery-container {
+            column-count: 1;
+            column-gap: 1.5rem;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .gallery-container {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-container {
+                column-count: 3;
+            }
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+            background: #f7f6f2;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* 微妙的錯落擺動感，創造出拍立得/手工相冊的溫馨溫度 */
+        .gallery-item:nth-child(odd) {
+            transform: rotate(-1.2deg);
+        }
+        .gallery-item:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        /* 滑鼠懸停效果 */
+        .gallery-item:hover {
+            transform: scale(1.03) rotate(0deg) translateY(-5px);
+            box-shadow: 0 20px 35px rgba(212, 163, 115, 0.12);
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* 新增防下載保護 */
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 照片下方微小的優雅邊框感 */
+        .gallery-caption {
+            background: white;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #8e909a;
+            border-top: 1px solid rgba(0, 0, 0, 0.02);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+            /* 防止文字選取 */
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* 燈箱大圖防護 */
+        #lightbox-img {
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body id="wedding-body">
@@ -283,7 +373,73 @@
                 <span class="text-[#8da399] font-bold">Dress Code：淡色系</span>
             </p>
         </div>
+
+        <!-- 升級為不規則瀑布流的相片牆，完美適應任何照片數量與比例 -->
+        <div class="mt-16 max-w-5xl mx-auto px-2">
+            <div class="gallery-container" id="photo-gallery">
+                <div class="gallery-item" onclick="openLightbox(0)">
+                    <img src="./gallery/photo1.jpg" alt="Wedding Photo 1" loading="lazy">
+                    <div class="gallery-caption">Memory 01</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(1)">
+                    <img src="./gallery/photo2.jpg" alt="Wedding Photo 2" loading="lazy">
+                    <div class="gallery-caption">Memory 02</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(2)">
+                    <img src="./gallery/photo3.jpg" alt="Wedding Photo 3" loading="lazy">
+                    <div class="gallery-caption">Memory 03</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(3)">
+                    <img src="./gallery/photo4.jpg" alt="Wedding Photo 4" loading="lazy">
+                    <div class="gallery-caption">Memory 04</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(4)">
+                    <img src="./gallery/photo5.jpg" alt="Wedding Photo 5" loading="lazy">
+                    <div class="gallery-caption">Memory 05</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(5)">
+                    <img src="./gallery/photo6.jpg" alt="Wedding Photo 6" loading="lazy">
+                    <div class="gallery-caption">Memory 06</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(6)">
+                    <img src="./gallery/photo7.jpg" alt="Wedding Photo 7" loading="lazy">
+                    <div class="gallery-caption">Memory 07</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(7)">
+                    <img src="./gallery/photo8.jpg" alt="Wedding Photo 8" loading="lazy">
+                    <div class="gallery-caption">Memory 08</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(8)">
+                    <img src="./gallery/photo9.jpg" alt="Wedding Photo 9" loading="lazy">
+                    <div class="gallery-caption">Memory 09</div>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- 照片放大燈箱 (Modal) -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-[200] hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <!-- 關閉按鈕 -->
+        <button class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 text-3xl focus:outline-none" onclick="closeLightbox(event)">
+            &times;
+        </button>
+        
+        <!-- 上一張按鈕 -->
+        <button class="absolute left-4 md:left-8 text-white/50 hover:text-white transition-colors p-4 text-4xl focus:outline-none" onclick="prevPhoto(event)">
+            &#10094;
+        </button>
+
+        <!-- 圖片顯示區 -->
+        <div class="max-w-full max-h-[85vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="放大照片" class="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl transition-transform duration-300">
+            <p id="lightbox-caption" class="text-white/60 text-xs tracking-widest mt-4 font-en"></p>
+        </div>
+
+        <!-- 下一張按鈕 -->
+        <button class="absolute right-4 md:right-8 text-white/50 hover:text-white transition-colors p-4 text-4xl focus:outline-none" onclick="nextPhoto(event)">
+            &#10095;
+        </button>
+    </div>
 
     <!-- 婚禮詳情 -->
     <section id="details" class="py-20 bg-[#f4f1ea] px-6">
@@ -767,7 +923,7 @@
                     <div>
                         <label class="block text-[10px] text-gray-400 font-bold mb-1">聯絡電話 PHONE</label>
                         <input type="tel" name="entry.1826199566" class="rsvp-input" 
-                               placeholder="請輸入手機或市話" required
+                               placeholder="請輸入手機號碼" required
                                inputmode="numeric" 
                                pattern="[0-9]*"
                                maxlength="10"
@@ -829,6 +985,152 @@
                 }
             }
         });
+
+        // --- 燈箱放大相本控制功能 ---
+        const photoPaths = [
+            './gallery/photo1.jpg',
+            './gallery/photo2.jpg',
+            './gallery/photo3.jpg',
+            './gallery/photo4.jpg',
+            './gallery/photo5.jpg',
+            './gallery/photo6.jpg',
+            './gallery/photo7.jpg',
+            './gallery/photo8.jpg',
+            './gallery/photo9.jpg'
+        ];
+        
+        let currentPhotoIndex = 0;
+
+        function openLightbox(index) {
+            currentPhotoIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImg.src = photoPaths[index];
+            lightboxCaption.textContent = `Memory 0${index + 1}`;
+            
+            lightbox.classList.remove('hidden');
+            // 小延遲以觸發 CSS 動畫
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+            
+            // 鎖定背景滾動
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('opacity-0');
+            
+            // 動畫結束後隱藏
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function nextPhoto(event) {
+            if (event) event.stopPropagation();
+            currentPhotoIndex = (currentPhotoIndex + 1) % photoPaths.length;
+            updateLightboxContent();
+        }
+
+        function prevPhoto(event) {
+            if (event) event.stopPropagation();
+            currentPhotoIndex = (currentPhotoIndex - 1 + photoPaths.length) % photoPaths.length;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            // 輕微淡入淡出特效
+            lightboxImg.style.transform = 'scale(0.95)';
+            lightboxImg.style.opacity = '0';
+            
+            setTimeout(() => {
+                lightboxImg.src = photoPaths[currentPhotoIndex];
+                lightboxCaption.textContent = `Memory 0${currentPhotoIndex + 1}`;
+                lightboxImg.style.transform = 'scale(1)';
+                lightboxImg.style.opacity = '1';
+            }, 150);
+        }
+
+        // 監聽鍵盤左右鍵與 ESC 鍵，優化電腦體驗
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox && !lightbox.classList.contains('hidden')) {
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                } else if (event.key === 'ArrowRight') {
+                    nextPhoto();
+                } else if (event.key === 'ArrowLeft') {
+                    prevPhoto();
+                }
+            }
+        });
+
+        // 核心防下載安全機制：阻擋圖片右鍵選單與拖曳行為
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        }, false);
+
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        }, false);
+
+        // ==========================================
+        // 核心安全防護機制：禁用全域右鍵選單、拖曳與相關鍵盤快捷鍵
+        // ==========================================
+        // 1. 禁用全站滑鼠右鍵選單
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        // 2. 禁用全站圖片與網頁元素拖曳（防止直接將圖片拖拉至桌面或搜尋）
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        }, false);
+
+        // 3. 禁用複製、存檔、開發者工具與原始碼檢視的快捷鍵
+        document.addEventListener('keydown', function(e) {
+            // 阻擋 F12 開啟開發者工具
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+
+            // 判斷是否按下 Windows 控制鍵 (Ctrl) 或 Mac 控制鍵 (Cmd)
+            const isMetaKey = e.ctrlKey || e.metaKey;
+
+            if (isMetaKey) {
+                // S: 阻擋儲存網頁 (Ctrl+S / Cmd+S)
+                // U: 阻擋檢視原始碼 (Ctrl+U / Cmd+Option+U)
+                // I: 阻擋開發者工具 (Ctrl+Shift+I / Cmd+Option+I)
+                // C: 阻擋檢查元素 (Ctrl+Shift+C / Cmd+Option+C)
+                // J: 阻擋主控台 (Ctrl+Shift+J)
+                if (
+                    e.key === 's' || e.key === 'S' || e.keyCode === 83 ||
+                    e.key === 'u' || e.key === 'U' || e.keyCode === 85 ||
+                    e.key === 'i' || e.key === 'I' || e.keyCode === 73 ||
+                    e.key === 'c' || e.key === 'C' || e.keyCode === 67 ||
+                    e.key === 'j' || e.key === 'J' || e.keyCode === 74
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        }, false);
     </script>
 </body>
 </html>
