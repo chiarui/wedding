@@ -2,14 +2,17 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
+    <!-- 確保網頁在行動裝置上正確縮放，並防止使用者因雙擊而放大畫面破壞排版 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>chiarui & zsyuan's Wedding</title>
     <!-- 字體設定 -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Noto+Serif+TC:wght@300;500&display=swap" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <!-- 引入 Tailwind CSS 框架，用於響應式與現代化排版 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* 定義專案全域 CSS 變數，方便統一調配婚禮主題色系 */
         :root {
             --primary: #d4a373;
             --secondary: #8da399;
@@ -22,13 +25,14 @@
             background-color: #faf9f6;
             color: var(--text-dark);
             scroll-behavior: smooth;
-            overflow-x: hidden;
+            overflow-x: hidden;         /* 嚴防行動裝置因排版溢出產生左右滑動 */
             width: 100%;
         }
 
+        /* 英文專用襯線體 */
         .font-en { font-family: 'Cormorant Garamond', serif; }
 
-        /* 毛玻璃導航列 */
+        /* 毛玻璃效果導航列 (Glassmorphism) */
         .glass-nav {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -36,7 +40,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* 全螢幕封面 */
+        /* 全螢幕滿版封面區塊 */
         .hero-section {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('./cover.jpg');
@@ -59,6 +63,7 @@
             flex: 1;
         }
 
+        /* 桌面版寬度微調，讓計時器外觀比例更為大氣 */
         @media (min-width: 768px) {
             .timer-card {
                 min-width: 85px;
@@ -66,6 +71,7 @@
             }
         }
 
+        /* 倒數計時卡片間的直立分隔線 */
         .timer-divider {
             width: 1px;
             height: 30px;
@@ -73,13 +79,14 @@
             margin: 0 4px;
         }
 
-        /* 垂直 V-Card */
+        /* 垂直故事引言邊框卡片 (V-Card) */
         .v-card {
             border-left: 3px solid var(--primary);
             padding-left: 1.5rem;
             margin-bottom: 3rem;
         }
 
+        /* 防止英文字或人名折行 */
         .no-wrap {
             white-space: nowrap;
             display: inline-block;
@@ -92,19 +99,17 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
-
         .accordion-active .accordion-content {
             max-height: 500px;
         }
-
         .accordion-icon {
             transition: transform 0.3s ease;
         }
-
         .accordion-active .accordion-icon {
             transform: rotate(180deg);
         }
 
+        /* 懸浮音樂黑膠唱盤控制鈕 */
         .music-disc {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
@@ -131,6 +136,7 @@
             font-weight: bold;
         }
 
+        /* 隱藏 YouTube 播放器容器，讓使用者聽得見歌卻看不到 iframe 框架 */
         #yt-player-container {
             position: absolute;
             width: 1px;
@@ -155,6 +161,8 @@
         .rsvp-input:focus {
             border-color: var(--primary);
         }
+
+        /* 表單子區塊的藝術感標籤 */
         .section-tag {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -165,25 +173,24 @@
             margin-bottom: 1rem;
         }
 
-        /* 改良後的不規則藝術照片牆樣式 */
+        /* 不規則藝術相片牆 - 使用 CSS Multi-column 瀑布流排版 */
         .gallery-container {
-            column-count: 1;
+            column-count: 1;    /* 手機版單欄 */
             column-gap: 1.5rem;
             width: 100%;
         }
-
         @media (min-width: 640px) {
             .gallery-container {
-                column-count: 2;
+                column-count: 2;    /* 平板版雙欄 */
             }
         }
-
         @media (min-width: 1024px) {
             .gallery-container {
-                column-count: 3;
+                column-count: 3;    /* 桌機版三欄 */
             }
         }
 
+        /* 瀑布流中的單張相片包裝容器 */
         .gallery-item {
             break-inside: avoid;
             display: inline-block;
@@ -199,7 +206,7 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
-        /* 微妙的錯落擺動感，創造出拍立得/手工相冊的溫馨溫度 */
+        /* 拍立得手工感：單雙數相片產生些微的物理旋轉交錯效果 */
         .gallery-item:nth-child(odd) {
             transform: rotate(-1.2deg);
         }
@@ -207,13 +214,14 @@
             transform: rotate(1deg);
         }
 
-        /* 滑鼠懸停效果 */
+        /* 懸停時放大並回正，並增加陰影深度提升層次感 */
         .gallery-item:hover {
             transform: scale(1.03) rotate(0deg) translateY(-5px);
             box-shadow: 0 20px 35px rgba(212, 163, 115, 0.12);
             z-index: 10;
         }
 
+        /* 相片本體設定與防下載保護 */
         .gallery-item img {
             width: 100%;
             height: auto;
@@ -232,7 +240,7 @@
             transform: scale(1.05);
         }
 
-        /* 照片下方微小的優雅邊框感 */
+        /* 拍立得下方圖說標籤 */
         .gallery-caption {
             background: white;
             padding: 0.75rem;
@@ -247,7 +255,7 @@
             user-select: none;
         }
 
-        /* 燈箱大圖防護 */
+        /* 燈箱大圖設定防下載（防止右鍵儲存與滑鼠拖曳）*/
         #lightbox-img {
             pointer-events: none;
             -webkit-touch-callout: none;
@@ -258,7 +266,7 @@
 </head>
 <body id="wedding-body">
 
-    <!-- 隱藏播放器 -->
+    <!-- 隱藏播放器，用來載入 YouTube 影片作為 背景音樂 音訊源 -->
     <div id="yt-player-container">
         <div id="youtube-player"></div>
     </div>
@@ -290,7 +298,7 @@
     <header class="hero-section">
         <div class="px-4 w-full">
             <div class="bg-black/20 p-6 md:p-10 rounded-lg backdrop-blur-[2px] inline-block max-w-[90%]">
-                <h2 class="font-en italic text-xl md:text-2xl mb-4 tracking-[0.2em]">Love Love Love</h2>
+                <h2 class="font-en italic text-2xl md:text-2xl mb-4 tracking-[0.2em]">You are my greatest Adventure.</h2>
                 <h1 class="font-en text-5xl md:text-8xl mb-8">chiarui & zsyuan</h1>
                 <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-sm tracking-[0.2em]">
                     <div class="border-b md:border-b-0 md:border-r border-white/50 pb-2 md:pb-0 md:pr-6">
@@ -311,7 +319,7 @@
         <h3 class="font-en text-3xl md:text-4xl mb-12 text-[#8da399]">Save the Date</h3>
         
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-16">
-            <!-- 高雄計時 -->
+            <!-- 高雄場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <p class="countdown-title">高雄場 KAOHSIUNG COUNTDOWN</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
@@ -337,7 +345,7 @@
                 </div>
             </div>
 
-            <!-- 台北計時 -->
+            <!-- 台北場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <p class="countdown-title">台北場 TAIPEI COUNTDOWN</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
@@ -364,6 +372,7 @@
             </div>
         </div>
 
+        <!-- 新人故事區塊 -->
         <div class="v-card text-left max-w-lg mx-auto">
             <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
             <p class="leading-loose text-gray-600 text-sm md:text-base">
@@ -374,7 +383,7 @@
             </p>
         </div>
 
-        <!-- 升級為不規則瀑布流的相片牆，完美適應任何照片數量與比例 -->
+        <!-- 瀑布流相片展示牆，點擊單張照片可觸發大圖燈箱 (Lightbox) -->
         <div class="mt-16 max-w-5xl mx-auto px-2">
             <div class="gallery-container" id="photo-gallery">
                 <div class="gallery-item" onclick="openLightbox(0)">
@@ -549,6 +558,12 @@
             <h3 class="font-en text-3xl text-center mb-2 text-[#d4a373]">RSVP</h3>
             <p class="text-center text-xs text-gray-400 mb-10 tracking-widest italic">出席回函</p>
             
+            <!-- 
+                ** 關鍵技術：無跳轉表單送出 **
+                使用隱藏的 iframe 作為 form 的 target。
+                當表單送出時，瀏覽器會將回應載入到此 iframe 中，藉此達到「留在原網頁、不跳轉到 Google 預設成功頁面」的目的。
+                透過 onload 偵測，若視窗觸發了 submitted 標記，則呼叫 showSuccess() 顯示精美自訂成功視窗。
+            -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) {showSuccess();}"></iframe>
             
             <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeW46dOE1A9eaME1Wwi4Nh-NTaAMgwqBENh7qe14xtZh2UDAw/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
@@ -557,6 +572,7 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">姓名 <span class="font-en text-[#8da399]">NAME</span></label>
+                            <!-- entry.xxxxxxx 對應 Google Forms 背後欄位的唯一標識識別碼 -->
                             <input type="text" name="entry.1188900738" class="rsvp-input" placeholder="請輸入您的姓名" required>
                         </div>
                         <div>
@@ -574,7 +590,6 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">出席意願 <span class="font-en text-[#8da399]">ATTENDANCE</span></label>
-                            <!-- 選項 Value 已修改為全稱，以確保 Google 表單收錄成功 -->
                             <select name="entry.1140731537" id="attendance" class="rsvp-input" required onchange="toggleGuestOptions()">
                                 <option value="" hidden disabled selected>請選擇您的出席意願</option>
                                 <option value="一定出席！到場見證幸福時刻！">一定出席！到場見證幸福時刻！</option>
@@ -584,7 +599,6 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">參加場次 <span class="font-en text-[#8da399]">WHICH WEDDING</span></label>
-                            <!-- 選項 Value 已修改為全稱 -->
                             <select name="entry.576496126" id="wedding_selection" class="rsvp-input" onchange="updateWeddingFields()">
                                 <option value="" hidden disabled selected>請選擇您參加的場次</option>
                                 <option value="高雄場 (10/03)">高雄場 (10/03)</option>
@@ -594,7 +608,12 @@
                         </div>
                     </div>
 
-                    <!-- 人數統計區塊與喜帖區塊分開，避免互相清空 -->
+                    <!-- 
+                        ** 動態容器 **
+                        1. rsvp_details_container: 用於渲染高/北場的「總人數、素食、兒童椅」輸入欄位。
+                        2. invitation_container: 用於渲染「喜帖索取形式、地址、電話或 email」輸入欄位。
+                        分開宣告是為了避免使用者更改選項時，清空了另一個區塊已填寫的資訊。
+                    -->
                     <div id="rsvp_details_container"></div>
                     <div id="invitation_container"></div>
 
@@ -610,6 +629,7 @@
                 </div>
             </form>
 
+            <!-- 成功訊息提示框 -->
             <div id="success_msg" class="hidden mt-6 text-center p-6 bg-[#f4f1ea] text-[#d4a373] rounded-lg text-sm border border-[#d4a373]/20 animate-pulse">
                 感謝您的回覆！我們婚禮見。<br>Thank you! We look forward to seeing you.
             </div>
@@ -620,15 +640,16 @@
         &copy; 2026 CHIARUI & ZSYUAN WEDDING. ALL RIGHTS RESERVED.
     </footer>
 
-    <!-- YouTube API -->
+    <!-- 載入第三方 YouTube Iframe API，用來以 JS 背景操作串流影音 -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
         var player;
         var interactionDone = false;
         var isMuted = true;
-        const videoID = 'IpFX2vq8HKw';
+        const videoID = 'IpFX2vq8HKw';  // YouTube 背景音樂影片 ID
 
+        // YouTube API 載入完畢後，會自動執行此函式
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
@@ -641,11 +662,13 @@
             });
         }
 
+        // 播放器就緒時觸發
         function onPlayerReady(event) {
             event.target.playVideo();
             updateVolumeUI();
         }
 
+        // 播放狀態改變（例如被使用者暫停、結束、或從緩衝回到播放中）
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
                 isMuted = player.isMuted();
@@ -656,6 +679,9 @@
             }
         }
 
+        // 【繞過自動播放政策核心】
+        // 由於現代瀏覽器（Chrome, Safari, iOS 等）為了防止蓋台廣告，嚴格禁止「網頁未經互動就發出聲音」。
+        // 我們監聽常見的使用者操作，一旦使用者滾動、點擊、滑動或按鍵，便立即解除靜音。
         const interactionEvents = ['mousedown', 'keydown', 'touchstart', 'click'];
         interactionEvents.forEach(eventType => {
             window.addEventListener(eventType, handleUserInteraction, { once: true, passive: true });
@@ -668,6 +694,7 @@
             }
         }
 
+        // 解除靜音並開始播放
         function activateAudio() {
             try {
                 player.unMute();
@@ -679,6 +706,7 @@
             } catch (err) { }
         }
 
+        // 手動切換靜音/非靜音按鈕
         function toggleMuteManual(event) {
             if (event) {
                 event.stopPropagation();
@@ -698,6 +726,7 @@
             updateVolumeUI();
         }
 
+        // 更新右下角黑膠唱盤按鈕的靜音/播放圖示
         function updateVolumeUI() {
             const highIcon = document.getElementById('icon-volume-high');
             const mutedIcon = document.getElementById('icon-volume-muted');
@@ -710,6 +739,7 @@
             }
         }
 
+        // 通用倒數計時器核心邏輯
         function updateTimer(targetDate, prefix) {
             const now = new Date().getTime();
             const distance = targetDate - now;
@@ -724,18 +754,25 @@
             if(document.getElementById(`${prefix}-secs`)) document.getElementById(`${prefix}-secs`).innerText = Math.max(0, s).toString().padStart(2, '0');
         }
 
+        // 設定高雄場、台北場活動目標時間（毫秒級）
         const khDate = new Date("Oct 3, 2026 12:00:00").getTime();
         const tpDate = new Date("Nov 14, 2026 17:30:00").getTime();
+        // 每一秒更新一次計時器狀態
         setInterval(() => { updateTimer(khDate, "kh"); updateTimer(tpDate, "tp"); }, 1000);
 
+        // 交通資訊開闔切換
         function toggleAccordion(element) {
             element.classList.toggle('accordion-active');
         }
 
-        // 喜帖欄位模板 (使用全稱 Value)
+        // ==========================================
+        // 【動態表單區塊模板定義】
+        // ==========================================
+        
+        // 喜帖索取形式 HTML
         const invitationFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-6">
-                <span class="section-tag bg-blue-400/5 text-slate-400 border border-blue-200/30">INVITATION 喜帖索取形式</span>
+                <span class="section-tag bg-[#787DA7]/10 text-[#787DA7]">INVITATION 喜帖索取形式</span>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold mb-2">喜帖形式 <span class="font-en text-[#8da399]">TYPE</span></label>
@@ -751,6 +788,7 @@
             </div>
         `;
 
+        // 高雄場出席人數、素食、兒童椅 HTML
         const khFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                 <span class="section-tag bg-[#d4a373]/10 text-[#d4a373]">KAOHSIUNG 高雄場資訊</span>
@@ -782,6 +820,7 @@
             </div>
         `;
 
+        // 台北場出席人數、素食、兒童椅 HTML
         const tpFields = `
             <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 mt-4">
                 <span class="section-tag bg-[#8da399]/10 text-[#8da399]">TAIPEI 台北場資訊</span>
@@ -813,28 +852,27 @@
             </div>
         `;
 
+        // 核心邏輯：依據出席意願與參加場次，動態更新表單欄位（避免重新繪製導致欄位資料遺失）
         function updateWeddingFields() {
             const container = document.getElementById('rsvp_details_container');
             const invContainer = document.getElementById('invitation_container');
             const selection = document.getElementById('wedding_selection').value;
             const attendance = document.getElementById('attendance').value;
 
-            // 使用 includes 來判斷，更加穩定
             const isAttending = attendance.includes('一定出席');
             const isNotAttending = attendance.includes('無法到場');
             const isGiftOnly = attendance.includes('禮到人不到');
 
-            // 1. 處理喜帖區塊 (避免重新繪製導致資料丟失)
+            // 1. 處理喜帖索取部分 (若已存在則不重複塞入，防資料被清空)
             if (isNotAttending) {
                 invContainer.innerHTML = '';
             } else if (isGiftOnly || isAttending) {
-                // 如果區塊內沒有內容才塞入 HTML，避免清空使用者已填資料
                 if (!invContainer.innerHTML.trim()) {
                     invContainer.innerHTML = invitationFields;
                 }
             }
 
-            // 2. 處理場次區塊
+            // 2. 處理場次細項部分
             if (isNotAttending || isGiftOnly) {
                 container.innerHTML = '';
             } else if (isAttending) {
@@ -850,11 +888,9 @@
             }
         }
 
-        // 限制只能輸入純數字，並移除前導 0 (除非只是 0)
+        // 強制只能輸入數字，且防呆處理前導 0 (例如使用者輸入 03，會被優化修正為 3)
         function validateNumbers(input) {
-            // 只保留數字
-            let val = input.value.replace(/\D/g, '');
-            // 轉成數字再轉回字串，可自動移除 0004 變成 4
+            let val = input.value.replace(/\D/g, '');   // 濾掉所有非數字字元
             if (val !== "") {
                 val = parseInt(val, 10).toString();
             } else {
@@ -869,7 +905,7 @@
             }
         }
 
-        // 檢查素食與兒童椅是否超過總人數
+        // 邏輯比對防呆：確保「素食人數」與「兒童椅數」不會超過該場次的「總出席人數」
         function checkComparison(prefix) {
             const guestsInput = document.getElementById(`${prefix}_guests`);
             const vegInput = document.getElementById(`${prefix}_veg`);
@@ -881,22 +917,18 @@
             const veg = parseInt(vegInput.value || 0, 10);
             const chair = parseInt(chairInput.value || 0, 10);
 
-            // 如果總人數為 0，且該場次為必填，強制轉為 1 (符合邏輯：出席至少 1 人)
-            if (guests === 0 && guestsInput.hasAttribute('required')) {
-                // 不強制改，交由使用者輸入，但比較時會以 0 計算
-            }
-
-            // 素食人數不能大於總人數
+            // 若素食大於總人數，直接將素食強制調整至等於總人數
             if (veg > guests) {
                 vegInput.value = guests;
             }
-
-            // 兒童椅數不能大於總人數
+            
+            // 若兒童椅大於總人數，直接將兒童椅強制調整至等於總人數
             if (chair > guests) {
                 chairInput.value = guests;
             }
         }
 
+        // 根據「喜帖索取形式」（電子、實體、都要），動態調整所需的輸入欄位 (Email/聯絡地址/電話)
         function updateInvitationDetails() {
             const container = document.getElementById('invitation_inputs_container');
             const type = document.getElementById('invitation_type').value;
@@ -944,6 +976,7 @@
             }
         }
 
+        // 出席意願變更時，觸發場次選擇器的啟用/禁用與必填狀態切換
         function toggleGuestOptions() {
             const attendance = document.getElementById('attendance').value;
             const selectionSelect = document.getElementById('wedding_selection');
@@ -951,11 +984,11 @@
             const isNotAttending = attendance.includes('無法到場');
             const isGiftOnly = attendance.includes('禮到人不到');
 
-            // 處理參加場次的禁用與必填狀態
+            // 如果不出席或僅禮到人不到，禁用場次選擇並降低透明度
             selectionSelect.disabled = (isNotAttending || isGiftOnly);
             selectionSelect.style.opacity = ((isNotAttending || isGiftOnly) ? '0.5' : '1');
             
-            // 如果一定出席，則強制參加場次必填
+            // 如果一定出席，強迫選取參加場次
             if (!isNotAttending && !isGiftOnly && attendance !== '') {
                 selectionSelect.required = true;
             } else {
@@ -965,20 +998,22 @@
             updateWeddingFields();
         }
 
+        // 表單送出成功後，隱藏原表單並顯示感謝提示，最後滾動對齊到 RSVP 錨點
         function showSuccess() {
             document.getElementById('success_msg').classList.remove('hidden');
             document.querySelector('form').style.display = 'none';
             window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
         }
 
+        // 網頁完全載入時，先初始化一次表單欄位
         window.onload = function() {
             updateWeddingFields();
         };
 
+        // 避免使用者在填寫 input 過程中，按到 Enter 鍵直接把表單給提交送出 (textarea 除外)
         const form = document.getElementById('rsvpForm');
         form.addEventListener('keydown', function(event) {
             if (event.key === 'Enter' || event.keyCode === 13) {
-                // 如果不是在 textarea 內，就取消 Enter 鍵的預設動作 (submit)
                 if (event.target.tagName !== 'TEXTAREA') {
                     event.preventDefault();
                     return false;
@@ -986,7 +1021,11 @@
             }
         });
 
-        // --- 燈箱放大相本控制功能 ---
+        // ==========================================
+        // 【燈箱大圖相簿控制功能】
+        // ==========================================
+        
+        // 相片檔案路徑映射陣列，索引必須與 HTML Gallery item 相呼應
         const photoPaths = [
             './gallery/photo1.jpg',
             './gallery/photo2.jpg',
@@ -1001,6 +1040,7 @@
         
         let currentPhotoIndex = 0;
 
+        // 打開燈箱
         function openLightbox(index) {
             currentPhotoIndex = index;
             const lightbox = document.getElementById('lightbox');
@@ -1011,15 +1051,16 @@
             lightboxCaption.textContent = `Memory 0${index + 1}`;
             
             lightbox.classList.remove('hidden');
-            // 小延遲以觸發 CSS 動畫
+            // 小延遲以利觸發 CSS opacity 的 transition 漸入特效
             setTimeout(() => {
                 lightbox.classList.remove('opacity-0');
             }, 10);
             
-            // 鎖定背景滾動
+            // 鎖定背景視窗滾動，避免穿透滾動 (Scroll Chaining)
             document.body.style.overflow = 'hidden';
         }
 
+        // 關閉燈箱
         function closeLightbox(event) {
             if (event) {
                 event.stopPropagation();
@@ -1027,33 +1068,37 @@
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.add('opacity-0');
             
-            // 動畫結束後隱藏
+            // 動畫結束後（0.3s）再套用 hidden，並恢復背景滾動
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 document.body.style.overflow = 'auto';
             }, 300);
         }
 
+        // 切換至下一張照片 (自動循環)
         function nextPhoto(event) {
             if (event) event.stopPropagation();
             currentPhotoIndex = (currentPhotoIndex + 1) % photoPaths.length;
             updateLightboxContent();
         }
 
+        // 切換至上一張照片 (自動循環)
         function prevPhoto(event) {
             if (event) event.stopPropagation();
             currentPhotoIndex = (currentPhotoIndex - 1 + photoPaths.length) % photoPaths.length;
             updateLightboxContent();
         }
 
+        // 燈箱內容更新切換 (自帶優雅的縮放/淡入淡出補間特效)
         function updateLightboxContent() {
             const lightboxImg = document.getElementById('lightbox-img');
             const lightboxCaption = document.getElementById('lightbox-caption');
             
-            // 輕微淡入淡出特效
+            // 先將舊圖片稍微縮小並淡出
             lightboxImg.style.transform = 'scale(0.95)';
             lightboxImg.style.opacity = '0';
             
+            // 0.15 秒後抽換新路徑，然後放大並恢復不透明度，產生平滑換圖感
             setTimeout(() => {
                 lightboxImg.src = photoPaths[currentPhotoIndex];
                 lightboxCaption.textContent = `Memory 0${currentPhotoIndex + 1}`;
@@ -1062,7 +1107,7 @@
             }, 150);
         }
 
-        // 監聽鍵盤左右鍵與 ESC 鍵，優化電腦體驗
+        // 電腦版貼心設計：監聽鍵盤左右方向鍵（切換照片）與 Esc 鍵（關閉燈箱）
         document.addEventListener('keydown', function(event) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox && !lightbox.classList.contains('hidden')) {
@@ -1075,19 +1120,6 @@
                 }
             }
         });
-
-        // 核心防下載安全機制：阻擋圖片右鍵選單與拖曳行為
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        }, false);
-
-        document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        }, false);
 
         // ==========================================
         // 核心安全防護機制：禁用全域右鍵選單、拖曳與相關鍵盤快捷鍵
