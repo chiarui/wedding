@@ -262,6 +262,14 @@
             -webkit-user-select: none;
             user-select: none;
         }
+
+        /* 新增：新郎新娘大頭貼防複製防下載 */
+        .avatar-img {
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body id="wedding-body">
@@ -314,8 +322,51 @@
         </div>
     </header>
 
-    <!-- 關於我們 / 計時器 -->
+    <!-- 關於我們 / 新人介紹 / 計時器 -->
     <section id="about" class="py-16 md:py-24 px-4 max-w-7xl mx-auto text-center overflow-hidden">
+        
+        <!-- ==========================================
+            【新增：新人介紹區塊 MEET THE BRIDE & GROOM】
+            ========================================== -->
+        <div class="mb-20 max-w-4xl mx-auto">
+            <h3 class="font-en text-3xl md:text-4xl mb-2 text-[#8da399]">Meet the Bride & Groom</h3>
+            <p class="text-xs text-gray-400 mb-12 tracking-widest italic font-en">關於新郎與新娘</p>
+            
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+                <!-- 新郎介紹 -->
+                <div class="flex flex-col items-center p-6 bg-white/40 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div class="relative w-40 h-40 mb-6 group">
+                        <!-- 圓形大頭貼與防呆機制 -->
+                        <div class="w-full h-full rounded-full overflow-hidden border-4 border-[#d4a373]/30 group-hover:border-[#d4a373] transition-colors duration-500 shadow-inner">
+                            <img src="./groom.jpg" alt="新郎 chiarui" class="avatar-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d4a373\'><path d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/></svg>'">
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 bg-[#d4a373] text-white text-[10px] tracking-widest px-3 py-1 rounded-full font-en shadow">GROOM</div>
+                    </div>
+                    <h4 class="font-en text-2xl text-[#d4a373] mb-1">chiarui</h4>
+                    <p class="text-xs text-[#8da399] tracking-widest mb-4">林家瑞</p>
+                    <p class="text-sm text-gray-600 leading-relaxed text-center max-w-xs">
+                        理性與感性兼具。喜歡在日常中尋找小驚喜，最大的樂趣是與 zsyuan 一起探索世界，用心珍藏彼此的點滴，並用踏實的腳步攜手走進人生的下一階段。
+                    </p>
+                </div>
+
+                <!-- 新娘介紹 -->
+                <div class="flex flex-col items-center p-6 bg-white/40 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div class="relative w-40 h-40 mb-6 group">
+                        <!-- 圓形大頭貼與防呆機制 -->
+                        <div class="w-full h-full rounded-full overflow-hidden border-4 border-[#8da399]/30 group-hover:border-[#8da399] transition-colors duration-500 shadow-inner">
+                            <img src="./bride.jpg" alt="新娘 zsyuan" class="avatar-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%238da399\'><path d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/></svg>'">
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 bg-[#8da399] text-white text-[10px] tracking-widest px-3 py-1 rounded-full font-en shadow">BRIDE</div>
+                    </div>
+                    <h4 class="font-en text-2xl text-[#8da399] mb-1">zsyuan</h4>
+                    <p class="text-xs text-[#d4a373] tracking-widest mb-4">尤子瑄</p>
+                    <p class="text-sm text-gray-600 leading-relaxed text-center max-w-xs">
+                        溫暖、熱愛生活。對世界充滿好奇心，珍惜每個真摯的擁抱與歡笑，在 chiarui 的陪伴下，總能勇敢地踏出冒險的步伐，一起勾勒出最美好的生活模樣。
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <h3 class="font-en text-3xl md:text-4xl mb-12 text-[#8da399]">Save the Date</h3>
         
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-16">
