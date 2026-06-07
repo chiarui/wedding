@@ -173,21 +173,18 @@
             margin-bottom: 1rem;
         }
 
-        /* 不規則藝術相片牆 - 使用 CSS Multi-column 瀑布流排版 */
-        .gallery-container {
-            column-count: 1;    /* 手機版單欄 */
-            column-gap: 1.5rem;
-            width: 100%;
+        /* 軸線動態感 */
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        @media (min-width: 640px) {
-            .gallery-container {
-                column-count: 2;    /* 平板版雙欄 */
-            }
-        }
-        @media (min-width: 1024px) {
-            .gallery-container {
-                column-count: 3;    /* 桌機版三欄 */
-            }
+
+        /* 行動裝置排版：將 Timeline 壓回單欄 */
+        @media (max-width: 768px) {
+            .absolute.left-1\/2 { display: none; } /* 隱藏軸線 */
+            .flex.flex-row-reverse { flex-direction: row !important; }
+            .w-5\/12 { width: 100% !important; }
+            .z-20 { display: none; } /* 隱藏軸點 */
+            .mb-20 { margin-bottom: 3rem; }
         }
 
         /* 瀑布流中的單張相片包裝容器 */
@@ -199,8 +196,8 @@
             position: relative;
             overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-            background: #f7f6f2;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: #f7f6f2; /* 確保底色保持一致 */
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -217,7 +214,6 @@
         /* 懸停時放大並回正，並增加陰影深度提升層次感 */
         .gallery-item:hover {
             transform: scale(1.03) rotate(0deg) translateY(-5px);
-            box-shadow: 0 20px 35px rgba(212, 163, 115, 0.12);
             z-index: 10;
         }
 
@@ -232,25 +228,6 @@
             /* 新增防下載保護 */
             pointer-events: none;
             -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        /* 拍立得下方圖說標籤 */
-        .gallery-caption {
-            background: white;
-            padding: 0.75rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #8e909a;
-            border-top: 1px solid rgba(0, 0, 0, 0.02);
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 0.1em;
-            /* 防止文字選取 */
             -webkit-user-select: none;
             user-select: none;
         }
@@ -329,8 +306,8 @@
             【新增：新人介紹區塊 MEET THE BRIDE & GROOM】
             ========================================== -->
         <div class="mb-20 max-w-4xl mx-auto">
-            <h3 class="font-en text-3xl md:text-4xl mb-2 text-[#8da399]">Meet the Bride & Groom</h3>
-            <p class="text-xs text-gray-400 mb-12 tracking-widest italic font-en">關於新郎與新娘</p>
+            <h3 class="font-en text-3xl md:text-4xl mb-2 text-[#8da399]">Groom & Bride</h3>
+            <p class="text-xs text-gray-400 mb-12 tracking-widest italic font-en">新郎與新娘</p>
             
             <div class="grid md:grid-cols-2 gap-12 md:gap-16">
                 <!-- 新郎介紹 -->
@@ -345,7 +322,8 @@
                     <h4 class="font-en text-2xl text-[#d4a373] mb-1">chiarui</h4>
                     <p class="text-xs text-[#8da399] tracking-widest mb-4">林家瑞</p>
                     <p class="text-sm text-gray-600 leading-relaxed text-center max-w-xs">
-                        理性與感性兼具。喜歡在日常中尋找小驚喜，最大的樂趣是與 zsyuan 一起探索世界，用心珍藏彼此的點滴，並用踏實的腳步攜手走進人生的下一階段。
+                        風趣隨和且情緒穩定<br>
+                        用溫柔與耐心陪伴彼此踏實前行<br>
                     </p>
                 </div>
 
@@ -361,18 +339,158 @@
                     <h4 class="font-en text-2xl text-[#8da399] mb-1">zsyuan</h4>
                     <p class="text-xs text-[#d4a373] tracking-widest mb-4">尤子瑄</p>
                     <p class="text-sm text-gray-600 leading-relaxed text-center max-w-xs">
-                        溫暖、熱愛生活。對世界充滿好奇心，珍惜每個真摯的擁抱與歡笑，在 chiarui 的陪伴下，總能勇敢地踏出冒險的步伐，一起勾勒出最美好的生活模樣。
+                        直爽率真且古靈精怪<br>
+                        用滿滿的活力帶領彼此勇敢冒險<br>
                     </p>
                 </div>
             </div>
         </div>
 
-        <h3 class="font-en text-3xl md:text-4xl mb-12 text-[#8da399]">Save the Date</h3>
-        
-        <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-16">
+        <!-- 新人故事區塊 -->
+        <div class="v-card text-left max-w-xl mx-auto">
+            <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
+            <p class="leading-loose text-gray-600 text-sm md:text-base">
+                在那次夜景你分過來的那一側耳機，我們的故事在旋律與夜色中悄悄開始<br><br>
+                這些年，我們一起生活、一起旅行，用最舒服的頻率相處<br>
+                在彼此身邊，我們都能自在地做最真實的自己<br><br>
+                在合掌村銀白色的祝福中，我們決定要攜手前行<br>
+                我們想將這份喜悅分享給最珍貴的你們<br>
+                誠摯邀請您一起參與我們的幸福時刻！<br>
+            </p>
+        </div>
+
+        <!-- 瀑布流相片展示牆，點擊單張照片可觸發大圖燈箱 (Lightbox) -->
+        <div class="mt-12 max-w-5xl mx-auto px-2">
+            <div class="relative max-w-5xl mx-auto px-4 py-16" id="photo-gallery">
+                <!-- 中間那條優雅的金色軸線 (帶有漸層) -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
+
+                <!-- 照片區 (奇數項用 flex-row-reverse) -->
+                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#e4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(0)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo1.jpg" alt="Memory 01" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 01</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(1)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo2.jpg" alt="Memory 02" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 02</div>
+                    </div>
+                </div>
+                
+                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(2)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo3.jpg" alt="Memory 03" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 03</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(3)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo4.jpg" alt="Memory 04" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 04</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(4)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo5.jpg" alt="Memory 05" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 05</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(5)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo6.jpg" alt="Memory 06" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 06</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(6)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo7.jpg" alt="Memory 07" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 07</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(7)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo8.jpg" alt="Memory 08" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 08</div>
+                    </div>
+                </div>
+
+                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
+                    <div class="w-5/12"></div>
+                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="w-5/12 group gallery-item" onclick="openLightbox(8)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/photo9.jpg" alt="Memory 09" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 09</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-16 md:h-28"></div>
+        <h3 class="font-en text-3xl md:text-4xl mb-10 text-[#8da399]">Save the Date</h3>
+        <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-8">
             <!-- 高雄場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
-                <p class="countdown-title">高雄場 KAOHSIUNG COUNTDOWN</p>
+                <p class="countdown-title">高雄場（2026 . 10 . 03）</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
                     <div class="timer-card">
                         <span id="kh-days" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
@@ -398,7 +516,7 @@
 
             <!-- 台北場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
-                <p class="countdown-title">台北場 TAIPEI COUNTDOWN</p>
+                <p class="countdown-title">台北場（2026 . 11 . 14）</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
                     <div class="timer-card">
                         <span id="tp-days" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
@@ -419,59 +537,6 @@
                         <span id="tp-secs" class="block font-en text-3xl md:text-4xl text-[#d4a373]">00</span>
                         <span class="text-[9px] text-gray-400 tracking-widest mt-1 inline-block">SECS</span>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 新人故事區塊 -->
-        <div class="v-card text-left max-w-lg mx-auto">
-            <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
-            <p class="leading-loose text-gray-600 text-sm md:text-base">
-                在溫暖的陽光下，我們決定攜手前行。<br>
-                在高雄，在台北，我們想將這份喜悅分享給最珍貴的你們。<br>
-                誠摯邀請您參與我們的幸福時刻。<br>
-                <span class="text-[#8da399] font-bold">Dress Code：淡色系</span>
-            </p>
-        </div>
-
-        <!-- 瀑布流相片展示牆，點擊單張照片可觸發大圖燈箱 (Lightbox) -->
-        <div class="mt-16 max-w-5xl mx-auto px-2">
-            <div class="gallery-container" id="photo-gallery">
-                <div class="gallery-item" onclick="openLightbox(0)">
-                    <img src="./gallery/photo1.jpg" alt="Wedding Photo 1" loading="lazy">
-                    <div class="gallery-caption">Memory 01</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(1)">
-                    <img src="./gallery/photo2.jpg" alt="Wedding Photo 2" loading="lazy">
-                    <div class="gallery-caption">Memory 02</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(2)">
-                    <img src="./gallery/photo3.jpg" alt="Wedding Photo 3" loading="lazy">
-                    <div class="gallery-caption">Memory 03</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(3)">
-                    <img src="./gallery/photo4.jpg" alt="Wedding Photo 4" loading="lazy">
-                    <div class="gallery-caption">Memory 04</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(4)">
-                    <img src="./gallery/photo5.jpg" alt="Wedding Photo 5" loading="lazy">
-                    <div class="gallery-caption">Memory 05</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(5)">
-                    <img src="./gallery/photo6.jpg" alt="Wedding Photo 6" loading="lazy">
-                    <div class="gallery-caption">Memory 06</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(6)">
-                    <img src="./gallery/photo7.jpg" alt="Wedding Photo 7" loading="lazy">
-                    <div class="gallery-caption">Memory 07</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(7)">
-                    <img src="./gallery/photo8.jpg" alt="Wedding Photo 8" loading="lazy">
-                    <div class="gallery-caption">Memory 08</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(8)">
-                    <img src="./gallery/photo9.jpg" alt="Wedding Photo 9" loading="lazy">
-                    <div class="gallery-caption">Memory 09</div>
                 </div>
             </div>
         </div>
@@ -682,7 +747,7 @@
 
             <!-- 成功訊息提示框 -->
             <div id="success_msg" class="hidden mt-6 text-center p-6 bg-[#f4f1ea] text-[#d4a373] rounded-lg text-sm border border-[#d4a373]/20 animate-pulse">
-                感謝您的回覆！我們婚禮見。<br>Thank you! We look forward to seeing you.
+                感謝您的回覆！<br>Thank you!
             </div>
         </div>
     </section>
