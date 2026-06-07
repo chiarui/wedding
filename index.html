@@ -183,11 +183,11 @@
             } 
             .timeline-dot { 
                 left: 1rem !important; /* 將軸點同步對齊左側軸線 */
-                transform: translateX(-50%) !important; /* 完美居中對齊 2px 的線 */
+                transform: translateX(-100%) !important; /* 完美居中對齊 2px 的線 */
                 margin: 0 !important;
             }  
             .timeline-row { 
-                flex-direction: row !important; /* 強制保持水平排列，不因 flex-row-reverse 倒轉 */
+                flex-direction: row !important; /* 強制保持水平排列 */
                 justify-content: flex-start !important; /* 靠左對齊 */
                 padding-left: 3rem !important; /* 保留左側軸線與點的空間 */
                 margin-bottom: 2.5rem !important;
@@ -197,6 +197,11 @@
                 width: calc(100% - 1rem) !important; /* 自動填滿剩餘寬度 */
                 max-width: 100% !important; /* 讓手機版自適應容器寬度 */
                 margin: 0 !important;   /* 取消置中，改為靠左 */
+            }
+            .timeline-end-text {
+                left: 1rem !important;
+                transform: translateX(-50%) !important;
+                margin-top: 1.5rem !important;
             }
         }
 
@@ -360,7 +365,7 @@
         </div>
 
         <div class="mt-12 max-w-5xl mx-auto px-2">
-            <div class="relative max-w-5xl mx-auto px-4 py-16" id="photo-gallery">
+            <div class="relative max-w-5xl mx-auto px-4 pt-16 pb-0" id="photo-gallery">
                 <div class="timeline-axis absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
 
                 <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
@@ -479,10 +484,17 @@
                         <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 09</div>
                     </div>
                 </div>
+
+                <div class="timeline-row mb-2 flex justify-between items-center w-full md:flex-row-reverse relative"></div>
+                <div class="timeline-end-text absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-8 z-20 whitespace-nowrap">
+                    <span class="font-en text-[10px] md:text-xs text-[#d4a373]/70 tracking-[0.2em] uppercase bg-[#faf9f6] px-2 py-1 block">
+                        To be continued
+                    </span>
+                </div>
             </div>
         </div>
 
-        <div class="h-16 md:h-28"></div>
+        <div class="h-16 md:h-40"></div>
         <h3 class="font-en text-3xl md:text-4xl mb-10 text-[#8da399]">Save the Date</h3>
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-8">
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
