@@ -2,14 +2,11 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <!-- 確保網頁在行動裝置上正確縮放，並防止使用者因雙擊而放大畫面破壞排版 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>chiarui & zsyuan's Wedding</title>
-    <!-- 字體設定 -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Noto+Serif+TC:wght@300;500&display=swap" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <!-- 引入 Tailwind CSS 框架，用於響應式與現代化排版 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* 定義專案全域 CSS 變數，方便統一調配婚禮主題色系 */
@@ -178,13 +175,29 @@
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
-        /* 行動裝置排版：將 Timeline 壓回單欄 */
+        /* 行動裝置排版：優化調整 Timeline 壓回單欄並將軸線靠左，照片同側顯示 */
         @media (max-width: 768px) {
-            .absolute.left-1\/2 { display: none; } /* 隱藏軸線 */
-            .flex.flex-row-reverse { flex-direction: row !important; }
-            .w-5\/12 { width: 100% !important; }
-            .z-20 { display: none; } /* 隱藏軸點 */
-            .mb-20 { margin-bottom: 3rem; }
+            .timeline-axis { 
+                left: 1rem !important; /* 將中央軸線移至畫面左側 (保留 1rem 邊距) */
+                transform: none !important;
+            } 
+            .timeline-dot { 
+                left: 1rem !important; /* 將軸點同步對齊左側軸線 */
+                transform: translateX(-50%) !important; /* 完美居中對齊 2px 的線 */
+                margin: 0 !important;
+            }  
+            .timeline-row { 
+                flex-direction: row !important; /* 強制保持水平排列，不因 flex-row-reverse 倒轉 */
+                justify-content: flex-start !important; /* 靠左對齊 */
+                padding-left: 3rem !important; /* 保留左側軸線與點的空間 */
+                margin-bottom: 2.5rem !important;
+            }
+            .timeline-space { display: none !important; } /* 隱藏桌面版空白對齊欄位 */
+            .timeline-content { 
+                width: calc(100% - 1rem) !important; /* 自動填滿剩餘寬度 */
+                max-width: 100% !important; /* 讓手機版自適應容器寬度 */
+                margin: 0 !important;   /* 取消置中，改為靠左 */
+            }
         }
 
         /* 瀑布流中的單張相片包裝容器 */
@@ -251,12 +264,10 @@
 </head>
 <body id="wedding-body">
 
-    <!-- 隱藏播放器，用來載入 YouTube 影片作為 背景音樂 音訊源 -->
     <div id="yt-player-container">
         <div id="youtube-player"></div>
     </div>
 
-    <!-- 音樂控制 UI -->
     <div id="audio-ui" class="fixed bottom-6 right-6 z-[100]">
         <button id="mute-toggle" onclick="toggleMuteManual(event)" class="music-disc rounded-full shadow-2xl text-[#d4a373] focus:outline-none">
             <svg id="icon-volume-high" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
@@ -268,7 +279,6 @@
         </button>
     </div>
 
-    <!-- 導覽列 -->
     <nav class="glass-nav fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center">
         <div class="font-en text-2xl font-medium tracking-widest text-[#d4a373]">C & Z</div>
         <div class="hidden lg:flex space-x-8 text-sm tracking-widest">
@@ -279,7 +289,6 @@
         <div class="lg:hidden text-[10px] text-[#d4a373] font-bold">10.03 高雄場 / 11.14 台北場</div>
     </nav>
 
-    <!-- 封面 -->
     <header class="hero-section">
         <div class="px-4 w-full">
             <div class="bg-black/20 p-6 md:p-10 rounded-lg backdrop-blur-[2px] inline-block max-w-[90%]">
@@ -299,21 +308,15 @@
         </div>
     </header>
 
-    <!-- 關於我們 / 新人介紹 / 計時器 -->
     <section id="about" class="py-16 md:py-24 px-4 max-w-7xl mx-auto text-center overflow-hidden">
         
-        <!-- ==========================================
-            【新增：新人介紹區塊 MEET THE BRIDE & GROOM】
-            ========================================== -->
         <div class="mb-20 max-w-4xl mx-auto">
             <h3 class="font-en text-3xl md:text-4xl mb-2 text-[#8da399]">Groom & Bride</h3>
             <p class="text-xs text-gray-400 mb-12 tracking-widest italic font-en">新郎與新娘</p>
             
             <div class="grid md:grid-cols-2 gap-12 md:gap-16">
-                <!-- 新郎介紹 -->
                 <div class="flex flex-col items-center p-6 bg-white/40 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                     <div class="relative w-40 h-40 mb-6 group">
-                        <!-- 圓形大頭貼與防呆機制 -->
                         <div class="w-full h-full rounded-full overflow-hidden border-4 border-[#d4a373]/30 group-hover:border-[#d4a373] transition-colors duration-500 shadow-inner">
                             <img src="./groom.jpg" alt="新郎 chiarui" class="avatar-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d4a373\'><path d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/></svg>'">
                         </div>
@@ -327,10 +330,8 @@
                     </p>
                 </div>
 
-                <!-- 新娘介紹 -->
                 <div class="flex flex-col items-center p-6 bg-white/40 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                     <div class="relative w-40 h-40 mb-6 group">
-                        <!-- 圓形大頭貼與防呆機制 -->
                         <div class="w-full h-full rounded-full overflow-hidden border-4 border-[#8da399]/30 group-hover:border-[#8da399] transition-colors duration-500 shadow-inner">
                             <img src="./bride.jpg" alt="新娘 zsyuan" class="avatar-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%238da399\'><path d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/></svg>'">
                         </div>
@@ -346,7 +347,6 @@
             </div>
         </div>
 
-        <!-- 新人故事區塊 -->
         <div class="v-card text-left max-w-xl mx-auto">
             <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
             <p class="leading-loose text-gray-600 text-sm md:text-base">
@@ -359,19 +359,16 @@
             </p>
         </div>
 
-        <!-- 瀑布流相片展示牆，點擊單張照片可觸發大圖燈箱 (Lightbox) -->
         <div class="mt-12 max-w-5xl mx-auto px-2">
             <div class="relative max-w-5xl mx-auto px-4 py-16" id="photo-gallery">
-                <!-- 中間那條優雅的金色軸線 (帶有漸層) -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
+                <div class="timeline-axis absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
 
-                <!-- 照片區 (奇數項用 flex-row-reverse) -->
-                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#e4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(0)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(0)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo1.jpg" alt="Memory 01" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -379,12 +376,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(1)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(1)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo2.jpg" alt="Memory 02" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -392,12 +389,12 @@
                     </div>
                 </div>
                 
-                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(2)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(2)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo3.jpg" alt="Memory 03" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -405,12 +402,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(3)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(3)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo4.jpg" alt="Memory 04" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -418,12 +415,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(4)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(4)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo5.jpg" alt="Memory 05" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -431,12 +428,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(5)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(5)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo6.jpg" alt="Memory 06" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -444,12 +441,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(6)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(6)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo7.jpg" alt="Memory 07" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -457,12 +454,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(7)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(7)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo8.jpg" alt="Memory 08" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -470,12 +467,12 @@
                     </div>
                 </div>
 
-                <div class="mb-20 flex justify-between items-center w-full flex-row-reverse">
-                    <div class="w-5/12"></div>
-                    <div class="z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
-                    <div class="w-5/12 group gallery-item" onclick="openLightbox(8)">
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(8)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
                             <img src="./gallery/photo9.jpg" alt="Memory 09" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
@@ -488,7 +485,6 @@
         <div class="h-16 md:h-28"></div>
         <h3 class="font-en text-3xl md:text-4xl mb-10 text-[#8da399]">Save the Date</h3>
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-8">
-            <!-- 高雄場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <p class="countdown-title">高雄場（2026 . 10 . 03）</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
@@ -514,7 +510,6 @@
                 </div>
             </div>
 
-            <!-- 台北場計時面板 -->
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <p class="countdown-title">台北場（2026 . 11 . 14）</p>
                 <div class="flex justify-center items-center gap-1 md:gap-2">
@@ -542,37 +537,30 @@
         </div>
     </section>
 
-    <!-- 照片放大燈箱 (Modal) -->
     <div id="lightbox" class="fixed inset-0 bg-black/90 z-[200] hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
-        <!-- 關閉按鈕 -->
         <button class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 text-3xl focus:outline-none" onclick="closeLightbox(event)">
             &times;
         </button>
         
-        <!-- 上一張按鈕 -->
         <button class="absolute left-4 md:left-8 text-white/50 hover:text-white transition-colors p-4 text-4xl focus:outline-none" onclick="prevPhoto(event)">
             &#10094;
         </button>
 
-        <!-- 圖片顯示區 -->
         <div class="max-w-full max-h-[85vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
             <img id="lightbox-img" src="" alt="放大照片" class="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl transition-transform duration-300">
             <p id="lightbox-caption" class="text-white/60 text-xs tracking-widest mt-4 font-en"></p>
         </div>
 
-        <!-- 下一張按鈕 -->
         <button class="absolute right-4 md:right-8 text-white/50 hover:text-white transition-colors p-4 text-4xl focus:outline-none" onclick="nextPhoto(event)">
             &#10095;
         </button>
     </div>
 
-    <!-- 婚禮詳情 -->
     <section id="details" class="py-20 bg-[#f4f1ea] px-6">
         <div class="max-w-5xl mx-auto">
             <h3 class="font-en text-3xl md:text-4xl text-center mb-16 text-[#8da399]">Wedding Details</h3>
             
             <div class="grid lg:grid-cols-2 gap-12 md:gap-16">
-                <!-- 高雄場詳情 -->
                 <div class="space-y-6">
                     <div class="inline-block px-4 py-1 border border-[#d4a373] text-[#d4a373] text-xs mb-4">KAOHSIUNG WEDDING</div>
                     <div class="space-y-6">
@@ -619,7 +607,6 @@
                     </div>
                 </div>
 
-                <!-- 台北場詳情 -->
                 <div class="space-y-6">
                     <div class="inline-block px-4 py-1 border border-[#8da399] text-[#8da399] text-xs mb-4">TAIPEI DINNER</div>
                     <div class="space-y-6">
@@ -668,32 +655,22 @@
         </div>
     </section>
 
-    <!-- 回函表單 -->
     <section id="rsvp" class="py-20 px-4">
         <div class="max-w-2xl mx-auto bg-white p-6 md:p-12 shadow-sm rounded-2xl border border-gray-50">
             <h3 class="font-en text-3xl text-center mb-2 text-[#d4a373]">RSVP</h3>
             <p class="text-center text-xs text-gray-400 mb-10 tracking-widest italic">出席回函</p>
             
-            <!-- 
-                ** 關鍵技術：無跳轉表單送出 **
-                使用隱藏的 iframe 作為 form 的 target。
-                當表單送出時，瀏覽器會將回應載入到此 iframe 中，藉此達到「留在原網頁、不跳轉到 Google 預設成功頁面」的目的。
-                透過 onload 偵測，若視窗觸發了 submitted 標記，則呼叫 showSuccess() 顯示精美自訂成功視窗。
-            -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) {showSuccess();}"></iframe>
             
             <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeW46dOE1A9eaME1Wwi4Nh-NTaAMgwqBENh7qe14xtZh2UDAw/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;">
                 <div class="space-y-8">
-                    <!-- 基本資料 -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold mb-2">姓名 <span class="font-en text-[#8da399]">NAME</span></label>
-                            <!-- entry.xxxxxxx 對應 Google Forms 背後欄位的唯一標識識別碼 -->
                             <input type="text" name="entry.1188900738" class="rsvp-input" placeholder="請輸入您的姓名" required>
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-2">與新人的關係 <span class="font-en text-[#8da399]">RELATIONSHIP</span></label>
-                            <!-- 選項 Value 必須與 Google 表單設定完全相同 -->
                             <select name="entry.924886869" class="rsvp-input" required>
                                 <option value="" hidden disabled selected>請選擇您的身分</option>
                                 <option value="新郎同事、同學、朋友">新郎同事、同學、朋友</option>
@@ -724,16 +701,9 @@
                         </div>
                     </div>
 
-                    <!-- 
-                        ** 動態容器 **
-                        1. rsvp_details_container: 用於渲染高/北場的「總人數、素食、兒童椅」輸入欄位。
-                        2. invitation_container: 用於渲染「喜帖索取形式、地址、電話或 email」輸入欄位。
-                        分開宣告是為了避免使用者更改選項時，清空了另一個區塊已填寫的資訊。
-                    -->
                     <div id="rsvp_details_container"></div>
                     <div id="invitation_container"></div>
 
-                    <!-- 備註/留言 -->
                     <div id="message_field">
                         <label class="block text-xs font-bold mb-2">想對新人說的話 <span class="font-en text-[#8da399]">MESSAGE</span></label>
                         <textarea name="entry.1604477425" rows="3" class="rsvp-input border-b border-gray-200 resize-none" placeholder="給予我們最溫馨的祝福..."></textarea>
@@ -745,7 +715,6 @@
                 </div>
             </form>
 
-            <!-- 成功訊息提示框 -->
             <div id="success_msg" class="hidden mt-6 text-center p-6 bg-[#f4f1ea] text-[#d4a373] rounded-lg text-sm border border-[#d4a373]/20 animate-pulse">
                 感謝您的回覆！<br>Thank you!
             </div>
@@ -756,7 +725,6 @@
         &copy; 2026 CHIARUI & ZSYUAN WEDDING. ALL RIGHTS RESERVED.
     </footer>
 
-    <!-- 載入第三方 YouTube Iframe API，用來以 JS 背景操作串流影音 -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
