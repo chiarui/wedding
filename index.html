@@ -201,7 +201,12 @@
             .timeline-end-text {
                 left: 1rem !important;
                 transform: translateX(-50%) !important;
-                margin-top: 1.5rem !important;
+                bottom: -8px !important; /* 精細修正，調整文字與最後一截線段的距離 */
+            }
+            .timeline-end-text span {
+                writing-mode: vertical-lr !important; /* 強制切換為直式書寫 */
+                border-radius: 4px !important; /* 直書時改用微微的細緻方角 */
+                padding: 12px 6px !important; /* 調整直書的上下左右內距 */
             }
         }
 
@@ -365,7 +370,7 @@
         </div>
 
         <div class="mt-12 max-w-5xl mx-auto px-2">
-            <div class="relative max-w-5xl mx-auto px-4 pt-16 pb-0" id="photo-gallery">
+            <div class="relative max-w-5xl mx-auto px-4 pt-16 pb-6" id="photo-gallery">
                 <div class="timeline-axis absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
 
                 <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
