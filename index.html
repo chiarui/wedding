@@ -1172,7 +1172,7 @@
             const lightboxCaption = document.getElementById('lightbox-caption');
             
             lightboxImg.src = photoPaths[index];
-            lightboxCaption.textContent = `Memory 0${index + 1}`;
+            lightboxCaption.textContent = ``;
             
             lightbox.classList.remove('hidden');
             // 小延遲以利觸發 CSS opacity 的 transition 漸入特效
@@ -1225,7 +1225,7 @@
             // 0.15 秒後抽換新路徑，然後放大並恢復不透明度，產生平滑換圖感
             setTimeout(() => {
                 lightboxImg.src = photoPaths[currentPhotoIndex];
-                lightboxCaption.textContent = `Memory 0${currentPhotoIndex + 1}`;
+                lightboxCaption.textContent = ``;
                 lightboxImg.style.transform = 'scale(1)';
                 lightboxImg.style.opacity = '1';
             }, 150);
