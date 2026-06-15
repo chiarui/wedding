@@ -293,7 +293,8 @@
         <div class="font-en text-2xl font-medium tracking-widest text-[#d4a373]">C & Z</div>
         <div class="hidden lg:flex space-x-8 text-sm tracking-widest">
             <a href="#about" class="hover:text-[#d4a373]">關於我們 ABOUT</a>
-            <a href="#details" class="hover:text-[#d4a373]">婚禮詳情 DETAILS</a>
+            <a href="#timeline" class="hover:text-[#d4a373]">十年一刻 JOURNEY</a>
+            <a href="#savethedate" class="hover:text-[#d4a373]">婚禮詳情 DETAILS</a>
             <a href="#rsvp" class="hover:text-[#d4a373]">出席回函 RSVP</a>
         </div>
         <div class="lg:hidden text-[10px] text-[#d4a373] font-bold">10.03 高雄場 / 11.14 台北場</div>
@@ -318,8 +319,7 @@
         </div>
     </header>
 
-    <section id="about" class="py-16 md:py-24 px-4 max-w-7xl mx-auto text-center overflow-hidden">
-        
+    <section id="about" class="py-16 md:py-16 px-4 max-w-7xl mx-auto text-center overflow-hidden">
         <div class="mb-20 max-w-4xl mx-auto">
             <h3 class="font-en text-3xl md:text-4xl mb-2 text-[#8da399]">Groom & Bride</h3>
             <p class="text-xs text-gray-400 mb-12 tracking-widest italic font-en">新郎與新娘</p>
@@ -356,150 +356,172 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="v-card text-left max-w-xl mx-auto">
-            <h4 class="text-lg md:text-xl mb-4 font-bold text-[#d4a373]">我們的故事 OUR STORY</h4>
+    <section id="timeline" class="bg-[#f4f1ea] py-16 md:py-24 px-4 mx-auto text-center overflow-hidden">
+        <h3 class="font-en text-3xl md:text-4xl mb-10 text-[#8da399]">Ten Years Journey</h3>
+
+        <div class="max-w-xl mt-14 mx-auto">
             <p class="leading-loose text-gray-600 text-sm md:text-base">
                 在那次夜景你分過來的那一側耳機，我們的故事在旋律與夜色中悄悄開始<br><br>
                 這些年，我們一起生活、一起旅行，用最舒服的頻率相處<br>
-                在彼此身邊，我們都能自在地做最真實的自己<br><br>
-                在合掌村銀白色的祝福中，我們決定要攜手前行<br>
-                我們想將這份喜悅分享給最珍貴的你們<br>
-                誠摯邀請您一起參與我們的幸福時刻！<br>
+                在彼此身邊，我們都能自在地做最真實的自己<br>
             </p>
         </div>
 
         <div class="mt-12 max-w-5xl mx-auto px-2">
-            <div class="relative max-w-5xl mx-auto px-4 pt-16 pb-6" id="photo-gallery">
-                <div class="timeline-axis absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-transparent via-[#d4a373] to-transparent"></div>
+            <div class="relative max-w-5xl mx-auto px-4 pt-8 pb-6" id="photo-gallery">
+                <div class="timeline-axis absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-[#d4a373]/20 via-[#d4a373] to-[#d4a373]/5"></div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full md:flex-row-reverse relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#e4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(0)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo1.jpg" alt="Memory 01" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2016.jpg" alt="Memory 01" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 01</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2016 @ National Taiwan University</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(1)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo2.jpg" alt="Memory 02" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2017.jpg" alt="Memory 02" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 02</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2017 @ Qixing Mountain</div>
                     </div>
                 </div>
                 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full md:flex-row-reverse relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(2)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo3.jpg" alt="Memory 03" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2018.jpg" alt="Memory 03" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 03</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2018 @ Tokyo Disneyland</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(3)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo4.jpg" alt="Memory 04" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2019.jpg" alt="Memory 04" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 04</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2019 @ Cheongsapo Busan</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full md:flex-row-reverse relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(4)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo5.jpg" alt="Memory 05" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2020.jpg" alt="Memory 05" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 05</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2020 @ Hehuan Mountain</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(5)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo6.jpg" alt="Memory 06" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2021.jpg" alt="Memory 06" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 06</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2021 @ Taichung Baseball Stadium</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full md:flex-row-reverse relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(6)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo7.jpg" alt="Memory 07" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2022.jpg" alt="Memory 07" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 07</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2022 @ Kusasenri Kumamoto</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(7)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo8.jpg" alt="Memory 08" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2023.jpg" alt="Memory 08" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 08</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2023 @ Milky Sea Guishan Island</div>
                     </div>
                 </div>
 
-                <div class="timeline-row mb-20 flex justify-between items-center w-full md:flex-row-reverse relative">
+                <div class="timeline-row mb-10 flex justify-between items-center w-full md:flex-row-reverse relative">
                     <div class="timeline-space w-5/12"></div>
                     <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
                         <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
                     </div>
                     <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(8)">
                         <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
-                            <img src="./gallery/photo9.jpg" alt="Memory 09" class="w-full transition-transform duration-700 group-hover:scale-110">
+                            <img src="./gallery/2024.jpg" alt="Memory 09" class="w-full transition-transform duration-700 group-hover:scale-110">
                         </div>
-                        <div class="text-center mt-2 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">MEMORY 09</div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2024 @ Zao Onsen</div>
+                    </div>
+                </div>
+
+                <div class="timeline-row mb-10 flex justify-between items-center w-full relative">
+                    <div class="timeline-space w-5/12"></div>
+                    <div class="timeline-dot absolute md:left-1/2 md:transform md:-translate-x-1/2 z-20 w-8 h-8 bg-white border-4 border-[#d4a373] rounded-full shadow-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-[#d4a373] rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="timeline-content w-5/12 group gallery-item" onclick="openLightbox(9)">
+                        <div class="overflow-hidden rounded-2xl ring-1 ring-[#d4a373]/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-[#d4a373]/40">
+                            <img src="./gallery/2025.jpg" alt="Memory 09" class="w-full transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="text-center text-xl mt-2 mb-1 font-en text-[#d4a373] tracking-widest opacity-100 transition-opacity">2025 @ Shirakawa Village</div>
                     </div>
                 </div>
 
                 <div class="timeline-row mb-2 flex justify-between items-center w-full md:flex-row-reverse relative"></div>
                 <div class="timeline-end-text absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-8 z-20 whitespace-nowrap">
-                    <span class="font-en text-[10px] md:text-xs text-[#d4a373]/70 tracking-[0.2em] uppercase bg-[#faf9f6] px-2 py-1 block">
+                    <span class="font-en text-[10px] md:text-xs text-[#d4a373]/70 tracking-[0.2em] uppercase px-2 py-1 block">
                         To be continued
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="h-16 md:h-40"></div>
+        <div class="max-w-xl mt-24 mx-auto">
+            <p class="leading-loose text-gray-600 text-sm md:text-base">
+                在合掌村銀白色的祝福中，我們決定要攜手前行<br>
+                我們想將這份喜悅分享給最珍貴的你們<br>
+                誠摯邀請您一起參與我們的幸福時刻！<br>
+            </p>
+        </div>
+    </section>
+
+    <section id="savethedate" class="py-16 md:py-16 px-4 max-w-7xl mx-auto text-center overflow-hidden">
         <h3 class="font-en text-3xl md:text-4xl mb-10 text-[#8da399]">Save the Date</h3>
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 mb-8">
             <div class="bg-white/50 p-6 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm">
@@ -1128,15 +1150,16 @@
         
         // 相片檔案路徑映射陣列，索引必須與 HTML Gallery item 相呼應
         const photoPaths = [
-            './gallery/photo1.jpg',
-            './gallery/photo2.jpg',
-            './gallery/photo3.jpg',
-            './gallery/photo4.jpg',
-            './gallery/photo5.jpg',
-            './gallery/photo6.jpg',
-            './gallery/photo7.jpg',
-            './gallery/photo8.jpg',
-            './gallery/photo9.jpg'
+            './gallery/2016.jpg',
+            './gallery/2017.jpg',
+            './gallery/2018.jpg',
+            './gallery/2019.jpg',
+            './gallery/2020.jpg',
+            './gallery/2021.jpg',
+            './gallery/2022.jpg',
+            './gallery/2023.jpg',
+            './gallery/2024.jpg',
+            './gallery/2025.jpg',
         ];
         
         let currentPhotoIndex = 0;
